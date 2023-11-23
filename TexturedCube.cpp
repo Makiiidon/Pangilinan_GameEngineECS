@@ -120,7 +120,7 @@ void TexturedCube::draw(int width, int height)
 {
 	ShaderNames shaderNames;
 	DeviceContext* deviceContext = GraphicsEngine::get()->getImmediateDeviceContext();
-	Texture* woodTex = (Texture*)TextureManager::getInstance()->createTextureFromFile(L"C:/Users/neilr/source/repos/nromblon/GDENG03_DirectXCPlusPlus/Assets/Textures/wood.jpg");
+	Texture* woodTex = (Texture*)TextureManager::getInstance()->createTextureFromFile(L"Assets/Textures/wood.jpg");
 
 	//set vertex shader and pixel shader for the object
 	deviceContext->setTexture(woodTex);

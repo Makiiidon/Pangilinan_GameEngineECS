@@ -26,9 +26,9 @@ void InspectorScreen::drawUI()
 		bool enabled = this->selectedObject->isEnabled();
 		if (ImGui::Button("Delete", ImVec2(0, 0))) { this->deleteSelected(); }
 		if (ImGui::Checkbox("Enabled", &enabled)) { this->selectedObject->setEnabled(enabled); }
-		if (ImGui::InputFloat3("Position", this->positionDisplay, "%.4f")) { this->onTransformUpdate(); }
-		if (ImGui::InputFloat3("Rotation", this->rotationDisplay, "%.4f")) { this->onTransformUpdate(); }
-		if (ImGui::InputFloat3("Scale", this->scaleDisplay, "%.4f")) { this->onTransformUpdate(); }
+		if (ImGui::DragFloat3("Position", this->positionDisplay, .1f)) { this->onTransformUpdate(); }
+		if (ImGui::DragFloat3("Rotation", this->rotationDisplay, .4f)) { this->onTransformUpdate(); }
+		if (ImGui::DragFloat3("Scale", this->scaleDisplay, .4f)) { this->onTransformUpdate(); }
 
 	}
 	else {
