@@ -18,11 +18,16 @@ public:
 	float getY() const;
 	float getZ() const;
 
+	Vector3D convertEulerToRadians();
+	Vector3D convertRadiansToEuler();
+
 	Vect getValues() const;
 
 	static Vector3D lerp(const Vector3D start, const Vector3D end, float delta);
 	static Vector3D ones();
 	static Vector3D zeros();
+	static Vector3D convertEulerToRadians(Vector3D euler);
+	static Vector3D convertRadiansToEuler(Vector3D radians);
 
 private:
 	float x = 0.0f;

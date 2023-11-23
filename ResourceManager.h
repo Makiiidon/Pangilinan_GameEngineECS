@@ -1,19 +1,25 @@
 #pragma once
+#include <iostream>
 #include <unordered_map>
 #include <string>
-#include "Prerequisites.h"
-#include "Resource.h"
 
-class ResourceManager
+class Resource;
+class AResourceManager
 {
 public:
-	ResourceManager();
-	virtual ~ResourceManager();
+	typedef std::wstring String;
+	typedef std::unordered_map<String, Resource*> HashTable;
 
-	ResourcePtr createResourceFromFile(const wchar_t* file_path);
+	//Resource* createResourceFromFile(const wchar_t* filePath);
+
 protected:
-	virtual Resource* createResourceFromFileConcrete(const wchar_t* file_path) = 0;
+	AResourceManager();
+	~AResourceManager();
+
+	HashTable resourceMap;
+
 private:
-	std::unordered_map<std::wstring, ResourcePtr> m_map_resources;
+	AResourceManager(AResourceManager const&) {};             // copy constructor is private
+	AResourceManager& operator=(AResourceManager const&) {};  // assignment operator is private*/
 };
 

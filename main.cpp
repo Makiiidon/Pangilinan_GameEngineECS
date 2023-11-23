@@ -4,8 +4,6 @@
 #include <iostream>
 #include "AppWindow.h"
 
-using namespace std;
-
 int main()
 {
     AppWindow app;
@@ -20,9 +18,11 @@ int main()
 
     } catch (const std::exception& err)
     {
-        cout << err.what();
+	    std::cout << err.what();
         return -1;
     }
+
+    app.onDestroy();
 
     return 0;
 }

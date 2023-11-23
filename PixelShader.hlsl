@@ -13,7 +13,7 @@ cbuffer constant : register(b0)
     float m_time;
 }
 
-float4 psmain (PS_INPUT input) : SV_Target
+float4 main (PS_INPUT input) : SV_Target
 {
     return float4(lerp(input.color0, input.color1, ((sin(m_time)) + 1) / 2), 1.0f);
 }

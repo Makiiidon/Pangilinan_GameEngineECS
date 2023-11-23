@@ -4,8 +4,9 @@
 #include "Plane.h"
 #include "MathUtils.h"
 #include "AGameObject.h"
-#include "BaseComponentSystem.h"
-#include "PhysicsComponent.h"
+#include "PhysicsCube.h"
+#include "PhysicsPlane.h"
+#include "TexturedCube.h"
 
 GameObjectManager* GameObjectManager::sharedInstance = NULL;
 
@@ -26,7 +27,7 @@ void GameObjectManager::destroy()
 	delete sharedInstance;
 }
 
-AGameObject* GameObjectManager::findObjectByName(string name)
+AGameObject* GameObjectManager::findObjectByName(String name)
 {
 	if (this->gameObjectMap[name] != NULL) {
 		return this->gameObjectMap[name];
@@ -57,12 +58,12 @@ void GameObjectManager::updateAll()
 	}
 }
 
-void GameObjectManager::renderAll(int viewportWidth, int viewportHeight, VertexShader* vertexShader, PixelShader* pixelShader)
+void GameObjectManager::renderAll(int viewportWidth, int viewportHeight)
 {
 	for (int i = 0; i < this->gameObjectList.size(); i++) {
 		//replace with component update
 		if (this->gameObjectList[i]->isEnabled()) {
-			this->gameObjectList[i]->draw(viewportWidth, viewportHeight, vertexShader, pixelShader);
+			this->gameObjectList[i]->draw(viewportWidth, viewportHeight);
 		}
 	}
 }
@@ -71,10 +72,10 @@ void GameObjectManager::addObject(AGameObject* gameObject)
 {
 	if (this->gameObjectMap[gameObject->getName()] != NULL) {
 		int count = 1;
-		String revisedString = gameObject->getName() + " " + "(" + to_string(count) + ")";
+		String revisedString = gameObject->getName() + " " + "(" + std::to_string(count) + ")";
 		while (this->gameObjectMap[revisedString] != NULL) {
 			count++;
-			revisedString = gameObject->getName() + " " + "(" + to_string(count) + ")";
+			revisedString = gameObject->getName() + " " + "(" + std::to_string(count) + ")";
 		}
 		//std::cout << "Duplicate found. New name is: " << revisedString << "\n";
 		gameObject->name = revisedString;
@@ -87,42 +88,35 @@ void GameObjectManager::addObject(AGameObject* gameObject)
 	this->gameObjectList.push_back(gameObject);
 }
 
-void GameObjectManager::createObject(PrimitiveType type, void* shaderByteCode, size_t sizeShader)
+void GameObjectManager::createObject(PrimitiveType type)
 {
 	if (type == PrimitiveType::CUBE) {
-		Cube* cube = new Cube("Cube", shaderByteCode, sizeShader);
+		Cube* cube = new Cube("Cube");
 		cube->setPosition(0.0f, 0.0f, 0.0f);
 		cube->setScale(1.0f, 1.0f, 1.0f);
 		this->addObject(cube);
 	}
 
 	else if (type == PrimitiveType::PLANE) {
-		Plane* plane = new Plane("Plane", shaderByteCode, sizeShader);
+		Plane* plane = new Plane("Plane");
 		this->addObject(plane);
 	}
 
-	else if (type == PrimitiveType::PHYSICS_CUBE)
-	{
-		Cube* cube = new Cube("Cube_Physics", shaderByteCode, sizeShader);
+	else if (type == PrimitiveType::TEXTURED_CUBE) {
+		TexturedCube* cube = new TexturedCube("Cube_Textured");
 		cube->setPosition(0.0f, 0.0f, 0.0f);
 		cube->setScale(1.0f, 1.0f, 1.0f);
 		this->addObject(cube);
+	}
 
-		// add the Physics Component
-		string componentName = "Physics_Component" + cube->getName();
-		PhysicsComponent* component = new PhysicsComponent(componentName, cube);
-		cube->attachComponent(component);
+	else if (type == PrimitiveType::PHYSICS_CUBE) {
+		PhysicsCube* cube = new PhysicsCube("Cube_Physics");
+		this->addObject(cube);
 	}
 
 	else if (type == PrimitiveType::PHYSICS_PLANE) {
-		Plane* plane = new Plane("Plane_Physics", shaderByteCode, sizeShader);
+		PhysicsPlane* plane = new PhysicsPlane("Plane_Physics");
 		this->addObject(plane);
-
-		// add the Physics Component
-		string componentName = "Physics_Component" + plane->getName();
-		PhysicsComponent* component = new PhysicsComponent(componentName, plane);
-		plane->attachComponent(component);
-		plane->setStatic(true);
 	}
 }
 
@@ -142,10 +136,13 @@ void GameObjectManager::deleteObject(AGameObject* gameObject)
 		this->gameObjectList.erase(this->gameObjectList.begin() + index);
 	}
 
+	if (gameObject == this->selectedObject)
+		this->selectedObject = nullptr;
+
 	delete gameObject;
 }
 
-void GameObjectManager::deleteObjectByName(string name)
+void GameObjectManager::deleteObjectByName(String name)
 {
 	AGameObject* object = this->findObjectByName(name);
 
@@ -154,7 +151,7 @@ void GameObjectManager::deleteObjectByName(string name)
 	}
 }
 
-void GameObjectManager::setSelectedObject(string name)
+void GameObjectManager::setSelectedObject(String name)
 {
 	if (this->gameObjectMap[name] != NULL) {
 		this->setSelectedObject(this->gameObjectMap[name]);

@@ -1,5 +1,7 @@
 #include "Vector3D.h"
 
+#include "MathUtils.h"
+
 Vector3D::Vector3D()
 {
 
@@ -34,6 +36,16 @@ float Vector3D::getZ() const
 	return this->z;
 }
 
+Vector3D Vector3D::convertEulerToRadians()
+{
+	return convertEulerToRadians({ x, y, z });
+}
+
+Vector3D Vector3D::convertRadiansToEuler()
+{
+	return convertRadiansToEuler({ x, y, z });
+}
+
 Vector3D::Vect Vector3D::getValues() const
 {
 	Vect vect = {};
@@ -56,12 +68,22 @@ Vector3D Vector3D::lerp(const Vector3D start, const Vector3D end, float delta)
 
 Vector3D Vector3D::ones()
 {
-	return Vector3D(1.0f, 1.0f, 1.0f);
+	return {1.0f, 1.0f, 1.0f};
 }
 
 Vector3D Vector3D::zeros()
 {
-	return Vector3D(0.0f, 0.0f, 0.0f);
+	return {0.0f, 0.0f, 0.0f};
+}
+
+Vector3D Vector3D::convertEulerToRadians(Vector3D euler)
+{
+	return {euler.x * MathUtils::PI / 180.0f, euler.y * MathUtils::PI / 180.0f, euler.z * MathUtils::PI / 180.0f};
+}
+
+Vector3D Vector3D::convertRadiansToEuler(Vector3D radians)
+{
+	return {radians.x * 180.0f / MathUtils::PI, radians.y * 180.0f / MathUtils::PI, radians.z * 180.0f / MathUtils::PI};
 }
 
 Vector3D::~Vector3D()

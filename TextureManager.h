@@ -1,13 +1,20 @@
 #pragma once
 #include "ResourceManager.h"
-
-
-class TextureManager : public ResourceManager
+class Texture;
+class TextureManager : public AResourceManager
 {
 public:
+	static void initialize();
+	static void destroy();
+	static TextureManager* getInstance();
+	Texture* createTextureFromFile(const wchar_t* filePath);
+
+private:
+	static TextureManager* sharedInstance;
+
 	TextureManager();
 	~TextureManager();
-	TexturePtr createTextureFromFile(const wchar_t* file_path);
-protected:
-	virtual Resource* createResourceFromFileConcrete(const wchar_t* file_path);
+	Resource* convertToResource(const wchar_t* filePath);
+
 };
+

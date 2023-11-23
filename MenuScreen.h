@@ -8,10 +8,13 @@ private:
 
 	virtual void drawUI() override;
 	void OnCreateCubeClicked();
+	void OnCreateTexturedCubeClicked();
 	void OnCreateSphereClicked();
 	void OnCreatePlaneClicked();
-	void OnCreatePhysicsCubeClicked();
-	void OnCreatePhysicsPlaneClicked();
+
+	void OnRigidBodyComponentClicked();
+	void OnPhysicsCubeClicked();
+	void OnPhysicsPlaneClicked();
 
 	friend class UIManager;
 

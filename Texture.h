@@ -2,14 +2,16 @@
 #include "Resource.h"
 #include <d3d11.h>
 
-class Texture : public Resource
+class Texture : public AResource
 {
 public:
-	Texture(const wchar_t* full_path);
+	Texture(const wchar_t* fullPath);
 	~Texture();
+	AResource::String getPath();
+	ID3D11ShaderResourceView* getShaderResource();
+
 private:
-	ID3D11Resource* m_texture = nullptr;
-	ID3D11ShaderResourceView* m_shader_res_view = nullptr;
-private:
-	friend class DeviceContext;
+	ID3D11Resource* myTexture = NULL;
+	ID3D11ShaderResourceView* shaderResView = NULL;
 };
+

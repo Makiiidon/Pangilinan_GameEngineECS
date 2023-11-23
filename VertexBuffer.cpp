@@ -1,5 +1,6 @@
 #include "VertexBuffer.h"
 #include "GraphicsEngine.h"
+#include "Utilities.h"
 
 VertexBuffer::VertexBuffer(): m_input_layout(nullptr), m_buffer(nullptr)
 {
@@ -14,7 +15,7 @@ UINT VertexBuffer::getSizeVertexList()
 	return m_size_list;
 }
 
-bool VertexBuffer::load(void* list_vertices, UINT size_vertex, UINT size_list, void* shader_byte_code, UINT size_byte_shader)
+void VertexBuffer::load(void* list_vertices, UINT size_vertex, UINT size_list, void* shader_byte_code, UINT size_byte_shader)
 {
 	if (m_buffer)
 		m_buffer->Release();
@@ -39,7 +40,7 @@ bool VertexBuffer::load(void* list_vertices, UINT size_vertex, UINT size_list, v
 	HRESULT res =  GraphicsEngine::get()->m_d3d_device->CreateBuffer(&buff_desc, &init_data, &m_buffer);
 
 	if (FAILED(res))
-		return false;
+		Utilities::PrintHResult("VertexBuffer: ", res);
 
 	D3D11_INPUT_ELEMENT_DESC layout[] = 
 	{
@@ -52,10 +53,7 @@ bool VertexBuffer::load(void* list_vertices, UINT size_vertex, UINT size_list, v
 
 	res = GraphicsEngine::get()->m_d3d_device->CreateInputLayout(layout, size_layout, shader_byte_code, size_byte_shader, &m_input_layout);
 	if (FAILED(res))
-		return false;
-
-
-	return true;
+		Utilities::PrintHResult("VertexBuffer: ", res);
 }
 
 bool VertexBuffer::release()

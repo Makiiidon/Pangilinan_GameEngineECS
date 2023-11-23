@@ -13,23 +13,22 @@ PhysicsComponent::PhysicsComponent(String name, AGameObject* owner) : AComponent
 	physicsSystem->registerComponent(this);
 	PhysicsCommon* physicsCommon = physicsSystem->getPhysicsCommon();
 	PhysicsWorld* physicsWorld = physicsSystem->getPhysicsWorld();
-	
+
 	// Create a rigid body in the world
 	Vector3D scale = this->getOwner()->getLocalScale();
 	Transform transform; transform.setFromOpenGL(this->getOwner()->getPhysicsLocalMatrix());
-	BoxShape* boxShape = physicsCommon->createBoxShape(Vector3(scale.getX() /2,  scale.getZ() /2, scale.getY()/2)); 
+	BoxShape* boxShape = physicsCommon->createBoxShape(Vector3(scale.getX() / 2, scale.getY() / 2, scale.getZ() / 2)); //half extent
 	this->rigidBody = physicsWorld->createRigidBody(transform);
 	this->rigidBody->addCollider(boxShape, transform);
 	this->rigidBody->updateMassPropertiesFromColliders();
 	this->rigidBody->setMass(this->mass);
-
+	this->rigidBody->setType(BodyType::DYNAMIC);
 
 	transform = this->rigidBody->getTransform();
 	float matrix[16];
 	transform.getOpenGLMatrix(matrix);
 
 	this->getOwner()->recomputeMatrix(matrix);
-
 }
 
 PhysicsComponent::~PhysicsComponent()
@@ -40,23 +39,11 @@ PhysicsComponent::~PhysicsComponent()
 
 void PhysicsComponent::perform(float deltaTime)
 {
-	if (this->getOwner()->isGameObjectStatic())
-		this->rigidBody->setType(BodyType::STATIC);
-	else
-		this->rigidBody->setType(BodyType::DYNAMIC);
-
 	const Transform transform = this->rigidBody->getTransform();
 	float matrix[16];
 	transform.getOpenGLMatrix(matrix);
-	
-	this->getOwner()->recomputeMatrix(matrix);
 
-	if (!this->getOwner()->isGameObjectStatic()) 
-	{
-		getOwner()->setRotation(transform.getOrientation().x, transform.getOrientation().y, transform.getOrientation().z);
-		getOwner()->setPosition(transform.getPosition().x, transform.getPosition().y, transform.getPosition().z);
-	}
-	
+	this->getOwner()->recomputeMatrix(matrix);
 	//std::cout << "My component is updating: " << this->name << "\n";
 }
 

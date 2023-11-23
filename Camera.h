@@ -5,11 +5,11 @@
 class Camera : public AGameObject, public InputListener
 {
 public:
-	Camera(string name);
+	Camera(std::string name);
 	~Camera();
 
 	void update(float deltaTime) override;
-	void draw(int width, int height, VertexShader* vertexShader, PixelShader* pixelShader) override;
+	void draw(int width, int height) override;
 	Matrix4x4 getViewMatrix();
 
 	virtual void onKeyDown(int key) override;

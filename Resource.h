@@ -1,11 +1,13 @@
 #pragma once
 #include <string>
 
-class Resource
+class AResource
 {
 public:
-	Resource(const wchar_t* full_path);
-	virtual ~Resource();
+	typedef std::wstring String;
+	AResource(const wchar_t* fullPath);
+	virtual ~AResource();
 protected:
-	std::wstring m_full_path;
+	String fullPath;
 };
+

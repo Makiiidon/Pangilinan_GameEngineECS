@@ -11,6 +11,7 @@ private:
 	void onTransformUpdate();
 	virtual void drawUI() override;
 	void updateTransformDisplays();
+	void deleteSelected();
 	friend class UIManager;
 
 	float positionDisplay[3] = { 0.0f, 0.0f, 0.0f };

@@ -3,6 +3,7 @@
 #include "SwapChain.h"
 #include "VertexBuffer.h"
 #include "VertexShader.h"
+#include "Texture.h"
 
 DeviceContext::DeviceContext(ID3D11DeviceContext* device_context)
 {
@@ -54,14 +55,23 @@ void DeviceContext::setIndexBuffer(IndexBuffer* index_buffer)
 	m_device_context->IASetIndexBuffer(index_buffer->getBuffer(), DXGI_FORMAT_R32_UINT, 0);
 }
 
-void DeviceContext::setConstantBuffer(VertexShader* vertex_shader, ConstantBuffer* buffer)
+void DeviceContext::setRenderConfig(VertexShader* vertexShader, PixelShader* pixelShader)
 {
-	m_device_context->VSSetConstantBuffers(0, 1, &(buffer->m_buffer));
+	this->m_device_context->VSSetShader(vertexShader->getShader(), NULL, 0);
+	this->m_device_context->PSSetShader(pixelShader->getShader(), NULL, 0);
 }
 
-void DeviceContext::setConstantBuffer(PixelShader* pixel_shader, ConstantBuffer* buffer)
+void DeviceContext::setConstantBuffer(ConstantBuffer* buffer)
 {
+	m_device_context->VSSetConstantBuffers(0, 1, &(buffer->m_buffer));
 	m_device_context->PSSetConstantBuffers(0, 1, &(buffer->m_buffer));
+}
+
+void DeviceContext::setTexture(Texture* texture)
+{
+	ID3D11ShaderResourceView* shaderRes = texture->getShaderResource();
+	this->m_device_context->VSSetShaderResources(0, 1, &shaderRes);
+	this->m_device_context->PSSetShaderResources(0, 1, &shaderRes);
 }
 
 void DeviceContext::drawTriangleList(UINT vertex_count, UINT start_vertex_index)

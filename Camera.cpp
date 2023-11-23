@@ -2,7 +2,7 @@
 #include "InputSystem.h"
 #include <iostream>
 
-Camera::Camera(string name) : AGameObject(name)
+Camera::Camera(std::string name) : AGameObject(name)
 {
 	this->forwardDirection = Vector3D(1.0f, 0.0f, 1.0f);
 	this->backwardDirection = Vector3D(-1.0f, 0.0f, -1.0f);
@@ -27,7 +27,6 @@ void Camera::update(float deltaTime)
 	float moveSpeed = 10.0f;
 
 	if (InputSystem::getInstance()->isKeyDown('W')) {
-		std::cout << "W...\n";
 		Vector3D direction = localMatrix.getZDirection();
 		Vector3D newPos = Vector3D(
 			x + direction.getX() * deltaTime * moveSpeed,
@@ -89,7 +88,7 @@ void Camera::update(float deltaTime)
 	}
 }
 
-void Camera::draw(int width, int height, VertexShader* vertexShader, PixelShader* pixelShader)
+void Camera::draw(int width, int height)
 {
 	// no-op
 }
@@ -115,18 +114,15 @@ void Camera::onMouseMove(const Point deltaPos)
 		float y = localRot.getY();
 		float z = localRot.getZ();
 
-		float speed = 0.005f;
+		float speed = 0.5f;
 		x += deltaPos.getY() * speed;
 		y += deltaPos.getX() * speed;
 
 		this->setRotation(x, y, z);
 
-		cout << "Rotation: x:" << x << "y:" << y << "z:" << z << endl;
 		this->updateViewMatrix();
 		Vector3D dirZ = localMatrix.getZDirection();
-		cout << "Z direction: x:" << dirZ.getX() << "y:" << dirZ.getY() << "z:" << dirZ.getZ() << endl;
 		Vector3D dirX = localMatrix.getXDirection();
-		cout << "X direction: x:" << dirX.getX() << "y:" << dirX.getY() << "z:" << dirX.getZ() << endl;
 	}
 }
 

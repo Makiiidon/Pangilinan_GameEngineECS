@@ -24,12 +24,11 @@ void InspectorScreen::drawUI()
 
 		this->updateTransformDisplays();
 		bool enabled = this->selectedObject->isEnabled();
-		bool isStatic = this->selectedObject->isGameObjectStatic();
+		if (ImGui::Button("Delete", ImVec2(0, 0))) { this->deleteSelected(); }
 		if (ImGui::Checkbox("Enabled", &enabled)) { this->selectedObject->setEnabled(enabled); }
-		if (ImGui::Checkbox("Static", &isStatic)) { this->selectedObject->setStatic(isStatic); }
-		if (ImGui::DragFloat3("Position", this->positionDisplay, .4f)) { this->onTransformUpdate(); }
-		if (ImGui::DragFloat3("Rotation", this->rotationDisplay, .1f)) { this->onTransformUpdate(); }
-		if (ImGui::DragFloat3("Scale", this->scaleDisplay, .1f)) { this->onTransformUpdate(); }
+		if (ImGui::InputFloat3("Position", this->positionDisplay, "%.4f")) { this->onTransformUpdate(); }
+		if (ImGui::InputFloat3("Rotation", this->rotationDisplay, "%.4f")) { this->onTransformUpdate(); }
+		if (ImGui::InputFloat3("Scale", this->scaleDisplay, "%.4f")) { this->onTransformUpdate(); }
 
 	}
 	else {
@@ -54,6 +53,14 @@ void InspectorScreen::updateTransformDisplays()
 	this->scaleDisplay[0] = scale.getX();
 	this->scaleDisplay[1] = scale.getY();
 	this->scaleDisplay[2] = scale.getZ();
+}
+
+void InspectorScreen::deleteSelected()
+{
+	if (this->selectedObject == NULL)
+		return;
+
+	GameObjectManager::getInstance()->deleteObject(this->selectedObject);
 }
 
 void InspectorScreen::onTransformUpdate()

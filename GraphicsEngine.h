@@ -7,7 +7,7 @@
 #include "VertexShader.h"
 #include "PixelShader.h"
 #include "ConstantBuffer.h"
-#include "TextureManager.h"
+#include "TexturedVertexBuffer.h"
 
 class GraphicsEngine
 {
@@ -28,16 +28,14 @@ public:
 	bool compileVertexShader(LPCWSTR file_name, LPCSTR entry_point_name, void** shaderByteCode, size_t* byteCodeSize);
 	void releaseCompiledShader();
 
-
 	PixelShader* createPixelShader(const void* shader_byte_code, size_t byte_code_size);
 	bool compilePixelShader(LPCWSTR file_name, LPCSTR entry_point_name, void** shaderByteCode, size_t* byteCodeSize);
 
 
 	VertexBuffer* createVertexBuffer();
+	TexturedVertexBuffer* createTexturedBuffer();
 	IndexBuffer* createIndexBuffer();
 	ConstantBuffer* createConstantBuffer();
-
-	TextureManager* getTextureManager();
 
 private:
 	ID3D11Device* m_d3d_device;
@@ -55,7 +53,6 @@ private:
 	//ID3D11VertexShader* m_vs;
 	ID3D11PixelShader* m_ps;
 
-	TextureManager* m_tex_manager = nullptr;
 
 	friend class SwapChain;
 	friend class VertexBuffer;

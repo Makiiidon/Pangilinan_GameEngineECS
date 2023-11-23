@@ -1,35 +1,44 @@
 #include "Texture.h"
+#include <iostream>
 #include <DirectXTex.h>
 #include "GraphicsEngine.h"
 
-Texture::Texture(const wchar_t* full_path) : Resource(full_path)
+Texture::Texture(const wchar_t* fullPath) : AResource(fullPath)
 {
-	DirectX::ScratchImage image_data;
-	HRESULT res = DirectX::LoadFromWICFile(full_path, DirectX::WIC_FLAGS_NONE, nullptr, image_data);
+	DirectX::ScratchImage imageData;
+	HRESULT res = DirectX::LoadFromWICFile(fullPath, DirectX::WIC_FLAGS_NONE, NULL, imageData);
 
-	if (SUCCEEDED(res))
-	{
-		res = DirectX::CreateTexture(GraphicsEngine::get()->getDirect3DDevice(), image_data.GetImages(),
-			image_data.GetImageCount(), image_data.GetMetadata(), &m_texture);
+	if (SUCCEEDED(res)) {
+		ID3D11Device* dxDevice = GraphicsEngine::get()->getDirect3DDevice();
+		res = DirectX::CreateTexture(dxDevice, imageData.GetImages(),
+			imageData.GetImageCount(), imageData.GetMetadata(), &this->myTexture);
 
 		D3D11_SHADER_RESOURCE_VIEW_DESC desc = {};
-		desc.Format = image_data.GetMetadata().format;
+		desc.Format = imageData.GetMetadata().format;
 		desc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
-		desc.Texture2D.MipLevels = (UINT)image_data.GetMetadata().mipLevels;
+		desc.Texture2D.MipLevels = (UINT)imageData.GetMetadata().mipLevels;
 		desc.Texture2D.MostDetailedMip = 0;
 
-		GraphicsEngine::get()->getDirect3DDevice()->CreateShaderResourceView(m_texture, &desc,
-			&m_shader_res_view);
+		dxDevice->CreateShaderResourceView(this->myTexture, &desc, &this->shaderResView);
 	}
-	else
-	{
-		throw std::exception("Texture not created successfully");
+	else {
+		std::cout << "Texture not created successfully. \n";
 	}
 }
 
-
 Texture::~Texture()
 {
-	m_shader_res_view->Release();
-	m_texture->Release();
+	AResource::~AResource();
+	this->shaderResView->Release();
+	this->myTexture->Release();
+}
+
+AResource::String Texture::getPath()
+{
+	return this->fullPath;
+}
+
+ID3D11ShaderResourceView* Texture::getShaderResource()
+{
+	return this->shaderResView;
 }

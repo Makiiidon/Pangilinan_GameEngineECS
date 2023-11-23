@@ -1,12 +1,10 @@
 #include "Resource.h"
 
-
-
-Resource::Resource(const wchar_t* full_path) : m_full_path(full_path)
+AResource::AResource(const wchar_t* fullPath)
 {
+	this->fullPath = fullPath;
 }
 
-
-Resource::~Resource()
+AResource::~AResource()
 {
 }

@@ -6,8 +6,6 @@
 
 #include "Point.h"
 
-using namespace std;
-
 class InputSystem
 {
 
@@ -39,7 +37,7 @@ private:
 	void callOnRightMouseDown(Point deltaPt);
 	void callOnRightMouseUp(Point deltaPt);
 
-	vector<InputListener*> inputListenerList;
+	std::vector<InputListener*> inputListenerList;
 	// keyboard data
 	unsigned char keyStates[256] = {};
 	unsigned char oldKeyStates[256] = {};

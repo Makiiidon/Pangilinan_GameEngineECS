@@ -1,5 +1,7 @@
 #include "Matrix4x4.h"
 
+#include "MathUtils.h"
+
 
 Matrix4x4::Matrix4x4()
 {
@@ -56,32 +58,46 @@ void Matrix4x4::setScale(const Vector3D scale)
 	this->matrix[2][2] = vect.z;
 }
 
+/**
+ * \brief 
+ * \param x Euler Angle rotation of x-axis
+ */
 void Matrix4x4::setRotationX(float x)
 {
+	const float x_rad = x * MathUtils::PI / 180.0f;
 	this->setIdentity();
-	this->matrix[1][1] = cos(x);
-	this->matrix[1][2] = sin(x);
-	this->matrix[2][1] = -sin(x);
-	this->matrix[2][2] = cos(x);
+	this->matrix[1][1] = cos(x_rad);
+	this->matrix[1][2] = sin(x_rad);
+	this->matrix[2][1] = -sin(x_rad);
+	this->matrix[2][2] = cos(x_rad);
 }
 
+/**
+ * \brief
+ * \param y Euler Angle rotation of y-axis
+ */
 void Matrix4x4::setRotationY(float y)
 {
+	const float y_rad = y * MathUtils::PI / 180.0f;
 	this->setIdentity();
-	this->matrix[0][0] = cos(y);
-	this->matrix[0][2] = -sin(y);
-	this->matrix[2][0] = sin(y);
-	this->matrix[2][2] = cos(y);
+	this->matrix[0][0] = cos(y_rad);
+	this->matrix[0][2] = -sin(y_rad);
+	this->matrix[2][0] = sin(y_rad);
+	this->matrix[2][2] = cos(y_rad);
 }
 
-
+/**
+ * \brief
+ * \param z Euler Angle rotation of z-axis
+ */
 void Matrix4x4::setRotationZ(float z)
 {
+	const float z_rad = z * MathUtils::PI / 180.0f;
 	this->setIdentity();
-	this->matrix[0][0] = cos(z);
-	this->matrix[0][1] = sin(z);
-	this->matrix[1][0] = -sin(z);
-	this->matrix[1][1] = cos(z);
+	this->matrix[0][0] = cos(z_rad);
+	this->matrix[0][1] = sin(z_rad);
+	this->matrix[1][0] = -sin(z_rad);
+	this->matrix[1][1] = cos(z_rad);
 }
 
 void Matrix4x4::setPerspectiveFovLH(float fov, float aspect, float znear, float zfar)
