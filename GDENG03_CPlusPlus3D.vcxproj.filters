@@ -72,6 +72,12 @@
     <Filter Include="Source Files\GameEngine\ComponentSystem\PhysicsEngine">
       <UniqueIdentifier>{ffe26941-7b74-49f4-a1dd-36b833800554}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\GameEngine\GraphicsEngine\ResourceManager">
+      <UniqueIdentifier>{a1c46ae0-ce5c-4ecf-8fec-d804306bf406}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameEngine\GraphicsEngine\ResourceManager\TextureManager">
+      <UniqueIdentifier>{8de40547-584b-4a6b-b149-c283ae302c21}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Window.cpp">
@@ -202,6 +208,21 @@
     </ClCompile>
     <ClCompile Include="PhysicsComponent.cpp">
       <Filter>Source Files\GameEngine\ComponentSystem\PhysicsEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderLibrary.cpp">
+      <Filter>Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceManager.cpp">
+      <Filter>Source Files\GameEngine\GraphicsEngine\ResourceManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource.cpp">
+      <Filter>Source Files\GameEngine\GraphicsEngine\ResourceManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Source Files\GameEngine\GraphicsEngine\ResourceManager\TextureManager</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureManager.cpp">
+      <Filter>Source Files\GameEngine\GraphicsEngine\ResourceManager\TextureManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -336,6 +357,27 @@
     </ClInclude>
     <ClInclude Include="PhysicsComponent.h">
       <Filter>Source Files\GameEngine\ComponentSystem\PhysicsEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderNames.h">
+      <Filter>Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderLibrary.h">
+      <Filter>Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>Source Files\GameEngine\GraphicsEngine\ResourceManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Prerequisites.h">
+      <Filter>Source Files\GameEngine\GraphicsEngine\ResourceManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Source Files\GameEngine\GraphicsEngine\ResourceManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Source Files\GameEngine\GraphicsEngine\ResourceManager\TextureManager</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureManager.h">
+      <Filter>Source Files\GameEngine\GraphicsEngine\ResourceManager\TextureManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

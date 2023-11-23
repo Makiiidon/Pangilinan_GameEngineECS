@@ -78,6 +78,7 @@ void AppWindow::initializeEngine()
 {
 	GraphicsEngine::get()->init();
 	GraphicsEngine* graphEngine = GraphicsEngine::get();
+	TexturePtr m_wood_tex = GraphicsEngine::get()->getTextureManager()->createTextureFromFile(L"Assets\\Textures\\wood.jpg");
 	EngineTime::initialize();
 	InputSystem::initialize();
 

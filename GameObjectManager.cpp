@@ -103,19 +103,15 @@ void GameObjectManager::createObject(PrimitiveType type, void* shaderByteCode, s
 
 	else if (type == PrimitiveType::PHYSICS_CUBE)
 	{
-		for (int i = 0 ;i < 10; i++) 
-		{
-			Cube* cube = new Cube("Cube_Physics", shaderByteCode, sizeShader);
-			cube->setPosition(0.0f, 0.0f, 0.0f);
-			cube->setScale(1.0f, 1.0f, 1.0f);
-			this->addObject(cube);
+		Cube* cube = new Cube("Cube_Physics", shaderByteCode, sizeShader);
+		cube->setPosition(0.0f, 0.0f, 0.0f);
+		cube->setScale(1.0f, 1.0f, 1.0f);
+		this->addObject(cube);
 
-			// add the Physics Component
-			string componentName = "Physics_Component" + cube->getName();
-			PhysicsComponent* component = new PhysicsComponent(componentName, cube);
-			cube->attachComponent(component);
-		}
-		
+		// add the Physics Component
+		string componentName = "Physics_Component" + cube->getName();
+		PhysicsComponent* component = new PhysicsComponent(componentName, cube);
+		cube->attachComponent(component);
 	}
 
 	else if (type == PrimitiveType::PHYSICS_PLANE) {

@@ -17,10 +17,17 @@ GraphicsEngine::GraphicsEngine(): m_selected_feature_level()
 	m_dxgi_factory = nullptr;
 
 	m_custom_blob = nullptr;
+
+	try 
+	{
+		m_tex_manager = new TextureManager();
+	}
+	catch (...) { throw std::exception("Texture Manager not created successfully"); }
 }
 
 GraphicsEngine::~GraphicsEngine()
 {
+	delete m_tex_manager;
 }
 
 bool GraphicsEngine::init()
@@ -197,4 +204,9 @@ bool GraphicsEngine::compilePixelShader(LPCWSTR file_name, LPCSTR entry_point_na
 ConstantBuffer* GraphicsEngine::createConstantBuffer()
 {
 	return new ConstantBuffer();
+}
+
+TextureManager* GraphicsEngine::getTextureManager()
+{
+	return m_tex_manager;
 }

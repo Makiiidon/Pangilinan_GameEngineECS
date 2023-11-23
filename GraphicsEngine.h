@@ -7,6 +7,7 @@
 #include "VertexShader.h"
 #include "PixelShader.h"
 #include "ConstantBuffer.h"
+#include "TextureManager.h"
 
 class GraphicsEngine
 {
@@ -36,6 +37,8 @@ public:
 	IndexBuffer* createIndexBuffer();
 	ConstantBuffer* createConstantBuffer();
 
+	TextureManager* getTextureManager();
+
 private:
 	ID3D11Device* m_d3d_device;
 	D3D_FEATURE_LEVEL m_selected_feature_level;
@@ -52,6 +55,7 @@ private:
 	//ID3D11VertexShader* m_vs;
 	ID3D11PixelShader* m_ps;
 
+	TextureManager* m_tex_manager = nullptr;
 
 	friend class SwapChain;
 	friend class VertexBuffer;
