@@ -33,12 +33,13 @@ public:
 	void addObject(AGameObject* gameObject);
 	void createObject(PrimitiveType type);
 	void deleteObject(AGameObject* gameObject);
+	void deleteAllObjects();
 	void deleteObjectByName(String name);
 	void setSelectedObject(String name);
 	void setSelectedObject(AGameObject* gameObject);
 	AGameObject* getSelectedObject();
 
-	void createObjectFromFile(String objectName, PrimitiveType objectType, Vector3D position, Vector3D rotation, Vector3D scale);
+	void createObjectFromFile(String objectName, AGameObject::PrimitiveType objectType, Vector3D position, Vector3D rotation, Vector3D scale);
 
 private:
 	GameObjectManager();

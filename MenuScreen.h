@@ -1,5 +1,7 @@
 #pragma once
 #include "AUIScreen.h"
+#include <imgui.h>
+#include <imfilebrowser.h>
 class MenuScreen : public AUIScreen
 {
 private:
@@ -19,5 +21,9 @@ private:
 	friend class UIManager;
 
 	bool isOpen = false;
+
+	ImGui::FileBrowser* openFileDialog;
+	ImGui::FileBrowser* saveFileDialog;
+
 };
 

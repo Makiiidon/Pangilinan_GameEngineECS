@@ -142,6 +142,18 @@ void GameObjectManager::deleteObject(AGameObject* gameObject)
 	delete gameObject;
 }
 
+void GameObjectManager::deleteAllObjects()
+{
+	for (int i = 0; i < gameObjectList.size(); i++) 
+	{
+		delete gameObjectList[i];
+	}
+
+	selectedObject = nullptr;
+	gameObjectList.clear();
+	gameObjectMap.clear();
+}
+
 void GameObjectManager::deleteObjectByName(String name)
 {
 	AGameObject* object = this->findObjectByName(name);
@@ -168,7 +180,7 @@ AGameObject* GameObjectManager::getSelectedObject()
 	return this->selectedObject;
 }
 
-void GameObjectManager::createObjectFromFile(String objectName, PrimitiveType objectType, Vector3D position, Vector3D rotation, Vector3D scale)
+void GameObjectManager::createObjectFromFile(String objectName, AGameObject::PrimitiveType objectType, Vector3D position, Vector3D rotation, Vector3D scale)
 {
 	if (objectType == PrimitiveType::CUBE) {
 		Cube* cube = new Cube(objectName);

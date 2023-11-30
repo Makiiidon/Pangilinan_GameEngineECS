@@ -7,10 +7,18 @@
 #include "GraphicsEngine.h"
 #include "VertexShader.h"
 #include "ShaderLibrary.h"
+#include "SceneReader.h"
+#include "SceneWriter.h"
 
 MenuScreen::MenuScreen() : AUIScreen("MenuScreen")
 {
+	saveFileDialog = new ImGui::FileBrowser(ImGuiFileBrowserFlags_EnterNewFilename);
+	saveFileDialog->SetTitle("Save Scene");
+	saveFileDialog->SetTypeFilters({ ".rick" });
 
+	openFileDialog = new ImGui::FileBrowser();
+	openFileDialog->SetTitle("Open Scene");
+	openFileDialog->SetTypeFilters({ ".rick" });
 }
 
 MenuScreen::~MenuScreen()
@@ -22,9 +30,18 @@ void MenuScreen::drawUI()
 
 	if (ImGui::BeginMainMenuBar()) {
 		if (ImGui::BeginMenu("File")) {
-			if (ImGui::MenuItem("Open..", "Ctrl+O")) { /* Do stuff */ }
-			if (ImGui::MenuItem("Save", "Ctrl+S")) { /* Do stuff */ }
-			if (ImGui::MenuItem("Save As...", "Ctrl+Shift+S")) { /* Do stuff */ }
+			if (ImGui::MenuItem("Open..", "Ctrl+O")) 
+			{ 
+				openFileDialog->Open();
+			}
+			if (ImGui::MenuItem("Save", "Ctrl+S")) 
+			{ 
+				saveFileDialog->Open();
+			}
+			if (ImGui::MenuItem("Save As...", "Ctrl+Shift+S")) 
+			{ 
+				saveFileDialog->Open();
+			}
 			if (ImGui::MenuItem("Exit Editor", "Ctrl+W")) {/*Do something */ }
 			ImGui::EndMenu();
 		}
@@ -47,6 +64,29 @@ void MenuScreen::drawUI()
 			ImGui::EndMenu();
 		}
 		ImGui::EndMainMenuBar();
+		openFileDialog->Display();
+		saveFileDialog->Display();
+
+		if (openFileDialog->HasSelected())
+		{
+			// Full File Path fileDialog.GetSelected().string()
+			//std::cout << "Selected filename" << fileDialog.GetSelected().string() << std::endl;
+
+			SceneReader* reader = new SceneReader(openFileDialog->GetSelected().string());
+			reader->readFromFile();
+			openFileDialog->ClearSelected();
+			openFileDialog->Close();
+		}
+		if (saveFileDialog->HasSelected())
+		{
+			// Full File Path fileDialog.GetSelected().string()
+			//std::cout << "Selected filename" << fileDialog.GetSelected().string() << std::endl;
+			SceneWriter* file = new SceneWriter();
+			file->setDirectory(saveFileDialog->GetSelected().string());
+			file->writeToFile();
+			saveFileDialog->ClearSelected();
+			saveFileDialog->Close();
+		}
 	}
 }
 
