@@ -1,4 +1,5 @@
 #include "AGameObject.h"
+#include "GameObjectManager.h"
 
 AGameObject::AGameObject(std::string name)
 {
@@ -219,4 +220,14 @@ void AGameObject::setEnabled(bool enabled)
 std::string AGameObject::getName()
 {
 	return this->name;
+}
+
+AGameObject::PrimitiveType AGameObject::getObjectType()
+{
+	return objectType;
+}
+
+void AGameObject::setObjectType(PrimitiveType objectType)
+{
+	this->objectType = objectType;
 }

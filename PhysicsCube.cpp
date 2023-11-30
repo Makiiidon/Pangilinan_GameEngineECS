@@ -1,5 +1,6 @@
 #include "PhysicsCube.h"
 #include "PhysicsComponent.h"
+#include "GameObjectManager.h"
 
 PhysicsCube::PhysicsCube(String name, bool skipInit) : Cube(name, skipInit)
 {
@@ -7,6 +8,8 @@ PhysicsCube::PhysicsCube(String name, bool skipInit) : Cube(name, skipInit)
 	this->setScale(1.0f, 1.0f, 1.0f);
 	this->updateLocalMatrix();
 	this->attachComponent(new PhysicsComponent("PhysicsComponent", this));
+	setObjectType(PrimitiveType::PHYSICS_CUBE);
+
 }
 
 PhysicsCube::~PhysicsCube()

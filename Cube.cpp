@@ -3,6 +3,8 @@
 #include "SceneCameraHandler.h"
 #include "ShaderLibrary.h"
 #include "SwapChain.h"
+#include "GameObjectManager.h"
+
 
 Cube::Cube(String name, bool skipInit) :AGameObject(name)
 {
@@ -62,6 +64,8 @@ Cube::Cube(String name, bool skipInit) :AGameObject(name)
 	cbData.time = 0;
 	this->constantBuffer = GraphicsEngine::get()->createConstantBuffer();
 	this->constantBuffer->load(&cbData, sizeof(CBData));
+
+	setObjectType(PrimitiveType::CUBE);
 }
 
 Cube::~Cube()

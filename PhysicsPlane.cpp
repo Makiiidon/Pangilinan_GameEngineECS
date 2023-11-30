@@ -3,6 +3,7 @@
 #include "GraphicsEngine.h"
 #include "ShaderLibrary.h"
 #include "PhysicsSystem.h"
+#include "GameObjectManager.h"
 
 PhysicsPlane::PhysicsPlane(String name, bool skipInit) : Cube(name)
 {
@@ -74,6 +75,9 @@ PhysicsPlane::PhysicsPlane(String name, bool skipInit) : Cube(name)
 	PhysicsComponent* component = (PhysicsComponent*)this->findComponentOfType(AComponent::ComponentType::Physics, "PhysicsComponent");
 	component->getRigidBody()->setType(BodyType::KINEMATIC);
 	//component->getRigidBody()->setMass(0.0f);
+
+	setObjectType(PrimitiveType::PHYSICS_PLANE);
+
 }
 
 PhysicsPlane::~PhysicsPlane()

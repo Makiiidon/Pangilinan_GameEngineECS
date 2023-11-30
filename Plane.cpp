@@ -1,6 +1,7 @@
 #include "Plane.h"
 #include "GraphicsEngine.h"
 #include "ShaderLibrary.h"
+#include "GameObjectManager.h"
 
 Plane::Plane(String name) : Cube(name)
 {
@@ -65,6 +66,9 @@ Plane::Plane(String name) : Cube(name)
 
 	this->setScale(8.0f, 8.0f, 0.1f);
 	this->setRotation(90, 0.0f, 0.0f);
+
+	setObjectType(PrimitiveType::PLANE);
+
 }
 
 Plane::~Plane()

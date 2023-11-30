@@ -3,6 +3,7 @@
 #include "ShaderLibrary.h"
 #include "SceneCameraHandler.h"
 #include "TextureManager.h"
+#include "GameObjectManager.h"
 
 TexturedCube::TexturedCube(String name) : Cube(name, true)
 {
@@ -109,6 +110,9 @@ TexturedCube::TexturedCube(String name) : Cube(name, true)
 	DeviceContext* deviceContext = GraphicsEngine::get()->getImmediateDeviceContext();
 	deviceContext->setRenderConfig(ShaderLibrary::getInstance()->getVertexShader(shaderNames.TEXTURED_VERTEX_SHADER_NAME),
 	ShaderLibrary::getInstance()->getPixelShader(shaderNames.TEXTURED_PIXEL_SHADER_NAME));
+
+
+	setObjectType(PrimitiveType::TEXTURED_CUBE);
 
 }
 

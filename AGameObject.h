@@ -61,7 +61,18 @@ public:
 	void updateLocalMatrix(); //updates local matrix based from latest position, rotation, and scale.
 	float* getRawMatrix();
 
+	enum PrimitiveType {
+		TEXTURED_CUBE,
+		CUBE,
+		PLANE,
+		SPHERE,
+		PHYSICS_CUBE,
+		PHYSICS_PLANE
+	};
+
 	std::string getName();
+	PrimitiveType getObjectType();
+	void setObjectType(PrimitiveType objectType);
 
 	struct Vertex {
 		Vector3D position;
@@ -77,6 +88,7 @@ public:
 		float time;
 	};
 
+	
 protected:
 	std::string name;
 	Vector3D localPosition;
@@ -91,6 +103,8 @@ protected:
 
 private:
 	bool enabled = true;
+	PrimitiveType objectType;
+
 	friend class GameObjectManager;
 };
 

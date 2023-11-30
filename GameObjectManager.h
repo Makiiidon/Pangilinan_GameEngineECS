@@ -38,6 +38,8 @@ public:
 	void setSelectedObject(AGameObject* gameObject);
 	AGameObject* getSelectedObject();
 
+	void createObjectFromFile(String objectName, PrimitiveType objectType, Vector3D position, Vector3D rotation, Vector3D scale);
+
 private:
 	GameObjectManager();
 	~GameObjectManager();

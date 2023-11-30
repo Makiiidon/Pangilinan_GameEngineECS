@@ -168,6 +168,49 @@ AGameObject* GameObjectManager::getSelectedObject()
 	return this->selectedObject;
 }
 
+void GameObjectManager::createObjectFromFile(String objectName, PrimitiveType objectType, Vector3D position, Vector3D rotation, Vector3D scale)
+{
+	if (objectType == PrimitiveType::CUBE) {
+		Cube* cube = new Cube(objectName);
+		cube->setPosition(position);
+		cube->setRotation(rotation);
+		cube->setScale(scale);
+		this->addObject(cube);
+	}
+
+	else if (objectType == PrimitiveType::PLANE) {
+		Plane* plane = new Plane(objectName);
+		plane->setPosition(position);
+		plane->setRotation(rotation);
+		plane->setScale(scale);
+		this->addObject(plane);
+	}
+
+	else if (objectType == PrimitiveType::TEXTURED_CUBE) {
+		TexturedCube* cube = new TexturedCube(objectName);
+		cube->setPosition(position);
+		cube->setRotation(rotation);
+		cube->setScale(scale);
+		this->addObject(cube);
+	}
+
+	else if (objectType == PrimitiveType::PHYSICS_CUBE) {
+		PhysicsCube* cube = new PhysicsCube(objectName);
+		cube->setPosition(position);
+		cube->setRotation(rotation);
+		cube->setScale(scale);
+		this->addObject(cube);
+	}
+
+	else if (objectType == PrimitiveType::PHYSICS_PLANE) {
+		PhysicsPlane* plane = new PhysicsPlane(objectName);
+		plane->setPosition(position);
+		plane->setRotation(rotation);
+		plane->setScale(scale);
+		this->addObject(plane);
+	}
+}
+
 GameObjectManager::GameObjectManager()
 {
 }
