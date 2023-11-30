@@ -161,9 +161,11 @@
     <ClCompile Include="InputSystem.cpp" />
     <ClCompile Include="InspectorScreen.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MaterialScreen.cpp" />
     <ClCompile Include="MathUtils.cpp" />
     <ClCompile Include="Matrix4x4.cpp" />
     <ClCompile Include="MenuScreen.cpp" />
+    <ClCompile Include="ObjectRenderer.cpp" />
     <ClCompile Include="PhysicsComponent.cpp" />
     <ClCompile Include="PhysicsCube.cpp" />
     <ClCompile Include="PhysicsPlane.cpp" />
@@ -219,9 +221,11 @@
     <ClInclude Include="InputListener.h" />
     <ClInclude Include="InputSystem.h" />
     <ClInclude Include="InspectorScreen.h" />
+    <ClInclude Include="MaterialScreen.h" />
     <ClInclude Include="MathUtils.h" />
     <ClInclude Include="Matrix4x4.h" />
     <ClInclude Include="MenuScreen.h" />
+    <ClInclude Include="ObjectRenderer.h" />
     <ClInclude Include="PhysicsComponent.h" />
     <ClInclude Include="PhysicsCube.h" />
     <ClInclude Include="PhysicsPlane.h" />

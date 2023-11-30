@@ -3,9 +3,22 @@
 #include "GameObjectManager.h"
 #include "UIManager.h"
 #include "AGameObject.h"
+#include "TextureManager.h"
+#include "TexturedCube.h"
+#include "ObjectRenderer.h"
+#include "StringUtils.h"
+#include "MaterialScreen.h"
+
+void InspectorScreen::SendResult(String materialPath)
+{
+	TexturedCube* texturedObj = static_cast<TexturedCube*>(this->selectedObject);
+	texturedObj->getRenderer()->setRenderer(materialPath);
+	this->popupOpen = false;
+}
 
 InspectorScreen::InspectorScreen() : AUIScreen("InspectorScreen")
 {
+	openFileDialog = new ImGui::FileBrowser();
 }
 
 InspectorScreen::~InspectorScreen()
@@ -30,11 +43,48 @@ void InspectorScreen::drawUI()
 		if (ImGui::DragFloat3("Rotation", this->rotationDisplay, .4f)) { this->onTransformUpdate(); }
 		if (ImGui::DragFloat3("Scale", this->scaleDisplay, .4f)) { this->onTransformUpdate(); }
 
+		if(selectedObject->getObjectType() == AGameObject::TEXTURED_CUBE)
+			this->drawMaterialsTab();
 	}
 	else {
 		ImGui::Text("No object selected. Select an object first.");
 	}
 	ImGui::End();
+}
+
+void InspectorScreen::drawMaterialsTab()
+{
+	int WINDOW_WIDTH = 225;
+	int WINDOW_HEIGHT = 20;
+
+	TexturedCube* texturedObj = static_cast<TexturedCube*>(this->selectedObject);
+	this->materialPath = texturedObj->getRenderer()->getMaterialPath();
+	this->FormatMatImage();
+	ImGui::SetCursorPosX(50);
+	ImGui::Image(static_cast<void*>(this->materialDisplay->getShaderResource()), ImVec2(150,150));
+	std::vector<String> paths = StringUtils::split(this->materialPath, '\\');
+	this->materialName = paths[paths.size() - 1];
+	String displayText = "Material " + this->materialName;
+	ImGui::Text(displayText.c_str());
+	if (ImGui::Button("Add Material", ImVec2(WINDOW_WIDTH, WINDOW_HEIGHT))) {
+		this->popupOpen = !this->popupOpen;
+		UINames uiNames;
+		MaterialScreen* materialScreen = static_cast<MaterialScreen*>(UIManager::getInstance()->findUIByName(uiNames.MATERIAL_SCREEN));
+		materialScreen->linkInspectorScreen(this, this->materialPath);
+		UIManager::getInstance()->setEnabled(uiNames.MATERIAL_SCREEN, this->popupOpen);
+	}
+}
+
+void InspectorScreen::FormatMatImage()
+{
+	//convert to wchar format
+	String textureString = this->materialPath;
+	std::cout << " Tex: " << textureString << "\n";
+	std::wstring widestr = std::wstring(textureString.begin(), textureString.end());
+	const wchar_t* texturePath = widestr.c_str();
+	static_cast<TexturedCube*>(this->selectedObject)->getRenderer()->setTexture(TextureManager::getInstance()->createTextureFromFile(texturePath));
+
+	this->materialDisplay = static_cast<Texture*>(TextureManager::getInstance()->createTextureFromFile(texturePath));
 }
 
 void InspectorScreen::updateTransformDisplays()

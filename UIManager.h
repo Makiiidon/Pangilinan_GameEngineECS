@@ -15,6 +15,7 @@ public:
 	const String MENU_SCREEN = "MENU_SCREEN";
 	const String INSPECTOR_SCREEN = "INSPECTOR_SCREEN";
 	const String HIERARCHY_SCREEN = "HIERARCHY_SCREEN";
+	const String MATERIAL_SCREEN = "MATERIAL_SCREEN";
 };
 
 
@@ -29,6 +30,8 @@ public:
 	static void initialize(HWND windowHandle);
 	static void destroy();
 
+	void setEnabled(String uiName, bool flag);
+	AUIScreen* findUIByName(String uiName);
 	void drawAllUI();
 
 private:

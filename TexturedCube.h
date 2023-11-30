@@ -2,7 +2,7 @@
 #include "Cube.h"
 #include "TexturedVertexBuffer.h"
 #include "Vector2D.h"
-
+class ObjectRenderer;
 class TexturedCube : public Cube
 {
 public:
@@ -10,7 +10,7 @@ public:
 	~TexturedCube();
 
 	void draw(int width, int height) override;
-
+	ObjectRenderer* getRenderer() const;
 protected:
 	TexturedVertexBuffer* vertexBuffer;
 private:
@@ -18,5 +18,7 @@ private:
 		Vector3D position;
 		Vector2D texCoord;
 	};
+
+	ObjectRenderer* renderer;
 };
 

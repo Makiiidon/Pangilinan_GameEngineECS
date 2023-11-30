@@ -4,6 +4,7 @@
 #include "MenuScreen.h"
 #include "InspectorScreen.h"
 #include "HierarchyScreen.h"
+#include "MaterialScreen.h"
 
 
 UIManager* UIManager::sharedInstance = NULL;
@@ -21,6 +22,23 @@ void UIManager::initialize(HWND windowHandle)
 void UIManager::destroy()
 {
 	delete sharedInstance;
+}
+
+void UIManager::setEnabled(String uiName, bool flag)
+{
+	if (this->uiTable[uiName] != nullptr)
+	{
+		this->uiTable[uiName]->SetEnabled(flag);
+	}
+}
+
+AUIScreen* UIManager::findUIByName(String uiName)
+{
+	if (this->uiTable[uiName] != nullptr) 
+	{
+		return uiTable[uiName];
+	}
+	return nullptr;
 }
 
 void UIManager::drawAllUI()
@@ -73,6 +91,15 @@ UIManager::UIManager(HWND windowHandle)
 	HierarchyScreen* hierarchyScreen = new HierarchyScreen();
 	this->uiTable[uiNames.HIERARCHY_SCREEN] = hierarchyScreen;
 	this->uiList.push_back(hierarchyScreen);
+
+
+
+	//UIs that will show during runtime
+	MaterialScreen* materialScreen = new MaterialScreen();
+	this->uiTable[uiNames.MATERIAL_SCREEN] = materialScreen;
+	this->uiList.push_back(materialScreen);
+	materialScreen->SetEnabled(false);
+
 }
 
 UIManager::~UIManager()

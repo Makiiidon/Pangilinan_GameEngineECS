@@ -4,6 +4,7 @@
 #include "SceneCameraHandler.h"
 #include "TextureManager.h"
 #include "GameObjectManager.h"
+#include "ObjectRenderer.h"
 
 TexturedCube::TexturedCube(String name) : Cube(name, true)
 {
@@ -111,9 +112,10 @@ TexturedCube::TexturedCube(String name) : Cube(name, true)
 	deviceContext->setRenderConfig(ShaderLibrary::getInstance()->getVertexShader(shaderNames.TEXTURED_VERTEX_SHADER_NAME),
 	ShaderLibrary::getInstance()->getPixelShader(shaderNames.TEXTURED_PIXEL_SHADER_NAME));
 
-
+	ObjectRenderer* defaultRenderer = new ObjectRenderer();
+	defaultRenderer->setRenderer("D:\\School Files\\10th Term\\GDENG03\\Game Engine ECS\\Pangilinan_GameEngineECS\\Assets\\Textures\\wood.jpg");
+	renderer = defaultRenderer;
 	setObjectType(PrimitiveType::TEXTURED_CUBE);
-
 }
 
 TexturedCube::~TexturedCube()
@@ -124,10 +126,11 @@ void TexturedCube::draw(int width, int height)
 {
 	ShaderNames shaderNames;
 	DeviceContext* deviceContext = GraphicsEngine::get()->getImmediateDeviceContext();
-	Texture* woodTex = (Texture*)TextureManager::getInstance()->createTextureFromFile(L"Assets/Textures/wood.jpg");
+	//Texture* woodTex = (Texture*)TextureManager::getInstance()->createTextureFromFile(L"Assets/Textures/wood.jpg");
+	//deviceContext->setTexture(woodTex);
 
 	//set vertex shader and pixel shader for the object
-	deviceContext->setTexture(woodTex);
+	deviceContext->setTexture(this->renderer->getTexture());
 	deviceContext->setRenderConfig(ShaderLibrary::getInstance()->getVertexShader(shaderNames.TEXTURED_VERTEX_SHADER_NAME), ShaderLibrary::getInstance()->getPixelShader(shaderNames.TEXTURED_PIXEL_SHADER_NAME));
 
 	CBData cbData = {};
@@ -160,4 +163,9 @@ void TexturedCube::draw(int width, int height)
 	deviceContext->setVertexBuffer(this->vertexBuffer);
 
 	deviceContext->drawIndexedTriangleList(this->indexBuffer->getIndexSize(), 0, 0);
+}
+
+ObjectRenderer* TexturedCube::getRenderer() const
+{
+	return this->renderer;
 }

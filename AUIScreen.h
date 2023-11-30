@@ -14,9 +14,9 @@ protected:
 
 	String getName();
 	virtual void drawUI() = 0;
+	void SetEnabled(bool flag);
 
 	String name;
-
+	bool enabled = true;
 	friend class UIManager;
 };
-
