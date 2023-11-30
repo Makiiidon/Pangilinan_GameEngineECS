@@ -11,8 +11,8 @@ void SceneWriter::setDirectory(String directory)
 
 void SceneWriter::writeToFile()
 {
-	String fileDir = this->directory + ".rick";
-	if (this->directory.find(".rick") != String::npos) 
+	String fileDir = this->directory + ".rolled";
+	if (this->directory.find(".rolled") != String::npos) 
 	{
 		fileDir = this->directory;
 	}

@@ -14,11 +14,11 @@ MenuScreen::MenuScreen() : AUIScreen("MenuScreen")
 {
 	saveFileDialog = new ImGui::FileBrowser(ImGuiFileBrowserFlags_EnterNewFilename);
 	saveFileDialog->SetTitle("Save Scene");
-	saveFileDialog->SetTypeFilters({ ".rick" });
+	saveFileDialog->SetTypeFilters({ ".rolled" });
 
 	openFileDialog = new ImGui::FileBrowser();
 	openFileDialog->SetTitle("Open Scene");
-	openFileDialog->SetTypeFilters({ ".rick" });
+	openFileDialog->SetTypeFilters({ ".rolled" });
 }
 
 MenuScreen::~MenuScreen()
