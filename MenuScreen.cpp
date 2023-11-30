@@ -14,11 +14,11 @@ MenuScreen::MenuScreen() : AUIScreen("MenuScreen")
 {
 	saveFileDialog = new ImGui::FileBrowser(ImGuiFileBrowserFlags_EnterNewFilename);
 	saveFileDialog->SetTitle("Save Scene");
-	saveFileDialog->SetTypeFilters({ ".rolled" });
+	saveFileDialog->SetTypeFilters({ ".json", ".xml" });
 
 	openFileDialog = new ImGui::FileBrowser();
 	openFileDialog->SetTitle("Open Scene");
-	openFileDialog->SetTypeFilters({ ".rolled" });
+	openFileDialog->SetTypeFilters({ ".json", ".xml" });
 }
 
 MenuScreen::~MenuScreen()

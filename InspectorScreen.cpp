@@ -82,6 +82,8 @@ void InspectorScreen::FormatMatImage()
 	std::cout << " Tex: " << textureString << "\n";
 	std::wstring widestr = std::wstring(textureString.begin(), textureString.end());
 	const wchar_t* texturePath = widestr.c_str();
+
+	// Assigns the Texture to the renderer
 	static_cast<TexturedCube*>(this->selectedObject)->getRenderer()->setTexture(TextureManager::getInstance()->createTextureFromFile(texturePath));
 
 	this->materialDisplay = static_cast<Texture*>(TextureManager::getInstance()->createTextureFromFile(texturePath));

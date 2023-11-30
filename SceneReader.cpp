@@ -16,8 +16,8 @@ SceneReader::~SceneReader()
 
 void SceneReader::readFromFile()
 {
-	String fileDir = this->directory + ".rolled";
-	if (this->directory.find(".rolled") != String::npos) {
+	String fileDir = this->directory + ".json";
+	if (this->directory.find(".json") != String::npos) {
 		fileDir = this->directory;
 	}
 	GameObjectManager::getInstance()->deleteAllObjects();
