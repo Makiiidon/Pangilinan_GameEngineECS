@@ -78,6 +78,12 @@
     <Filter Include="Source Files\GameEngine\ResourceManager\TextureManager">
       <UniqueIdentifier>{ccb4d756-1333-4b8f-89ac-081808019bba}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\GameEngine\FileManagement">
+      <UniqueIdentifier>{7f05c2c7-3c23-4bff-b6dd-662e279b6929}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameEngine\EngineBackend">
+      <UniqueIdentifier>{a642490d-a660-492b-8bd1-cdc910352c9e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Window.cpp">
@@ -238,6 +244,27 @@
     </ClCompile>
     <ClCompile Include="TexturedVertexBuffer.cpp">
       <Filter>Source Files\GameEngine\GraphicsEngine\Buffers</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialScreen.cpp">
+      <Filter>Source Files\Editor\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="ScenePlayOptions.cpp">
+      <Filter>Source Files\Editor\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionScreen.cpp">
+      <Filter>Source Files\Editor\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectRenderer.cpp">
+      <Filter>Source Files\GameEngine\GraphicsEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneReader.cpp">
+      <Filter>Source Files\GameEngine\FileManagement</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneWriter.cpp">
+      <Filter>Source Files\GameEngine\FileManagement</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineBackend.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -403,6 +430,28 @@
     <ClInclude Include="TexturedVertexBuffer.h">
       <Filter>Source Files\GameEngine\GraphicsEngine\Buffers</Filter>
     </ClInclude>
+    <ClInclude Include="MaterialScreen.h">
+      <Filter>Source Files\Editor\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="ScenePlayOptions.h">
+      <Filter>Source Files\Editor\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionScreen.h">
+      <Filter>Source Files\Editor\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectRenderer.h">
+      <Filter>Source Files\GameEngine\GraphicsEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="StringUtils.h">
+      <Filter>Source Files\GameEngine\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneReader.h">
+      <Filter>Source Files\GameEngine\FileManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneWriter.h">
+      <Filter>Source Files\GameEngine\FileManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineBackend.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="VertexShader.hlsl">

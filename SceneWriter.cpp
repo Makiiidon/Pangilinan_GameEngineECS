@@ -20,7 +20,7 @@ void SceneWriter::writeToFile()
 	std::ofstream sceneFile;
 	sceneFile.open(fileDir, std::ios::out);
 
-	std::cout << "Selected filename" << fileDir << "\n";
+	std::cout << "Selected file directory " << fileDir << "\n";
 
 	GameObjectManager::List allObjects = GameObjectManager::getInstance()->getAllObjects();
 

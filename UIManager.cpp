@@ -5,6 +5,8 @@
 #include "InspectorScreen.h"
 #include "HierarchyScreen.h"
 #include "MaterialScreen.h"
+#include "ScenePlayOptions.h"
+#include "ActionScreen.h"
 
 
 UIManager* UIManager::sharedInstance = NULL;
@@ -92,7 +94,13 @@ UIManager::UIManager(HWND windowHandle)
 	this->uiTable[uiNames.HIERARCHY_SCREEN] = hierarchyScreen;
 	this->uiList.push_back(hierarchyScreen);
 
+	ScenePlayOptions* scenePlayOptions = new ScenePlayOptions();
+	this->uiTable[uiNames.SCENE_PLAY_OPTIONS] = scenePlayOptions;
+	this->uiList.push_back(scenePlayOptions);
 
+	ActionScreen* actionScreen = new ActionScreen();
+	this->uiTable[uiNames.ACTION_SCREEN] = actionScreen;
+	this->uiList.push_back(actionScreen);
 
 	//UIs that will show during runtime
 	MaterialScreen* materialScreen = new MaterialScreen();
