@@ -65,7 +65,7 @@ public:
 	Matrix4x4 getLocalMatrix();
 	void saveEditState();
 	void restoreEditState();
-	EditorAction* getEditState();
+
 	enum PrimitiveType {
 		TEXTURED_CUBE,
 		CUBE,

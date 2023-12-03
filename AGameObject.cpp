@@ -230,10 +230,6 @@ void AGameObject::restoreEditState()
 	}
 }
 
-EditorAction* AGameObject::getEditState()
-{
-	return lastEditState;
-}
 
 Vector3D AGameObject::getLocalScale()
 {
