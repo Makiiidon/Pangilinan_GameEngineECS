@@ -23,7 +23,21 @@ void ScenePlayOptions::drawUI()
 
 	//TODO: Use memento pattern for saving state of objects
 	if (backend->getMode() == EngineBackend::EDITOR) {
-		if (ImGui::Button("Play")) { EngineBackend::getInstance()->setMode(EngineBackend::PLAY); }
+		if (ImGui::Button("Play")) 
+		{ 
+			EngineBackend::getInstance()->setMode(EngineBackend::PLAY); 
+
+			PhysicsSystem::ComponentList components = BaseComponentSystem::getInstance()->getPhysicsSystem()->getAllComponents();
+			for (int i = 0; i < components.size(); i++) {
+				if (components[i]->getRigidBody()->getType() != BodyType::KINEMATIC) 
+				{
+					components[i]->getOwner()->detachComponent(components[i]);
+					components[i]->getOwner()->attachComponent(new PhysicsComponent("PhysicsComponent", components[i]->getOwner()));
+					delete components[i];
+				}
+				
+			}
+		}
 	}
 
 	else if (backend->getMode() != EngineBackend::EDITOR) {
