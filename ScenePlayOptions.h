@@ -13,5 +13,6 @@ private:
 
 
 	bool isPlay = false;
+	bool isPaused = false;
 };
 

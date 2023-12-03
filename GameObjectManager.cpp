@@ -7,8 +7,22 @@
 #include "PhysicsCube.h"
 #include "PhysicsPlane.h"
 #include "TexturedCube.h"
+#include "EditorAction.h"
 
 GameObjectManager* GameObjectManager::sharedInstance = NULL;
+
+void GameObjectManager::applyEditorAction(EditorAction* action)
+{
+	AGameObject* object = this->findObjectByName(action->getOwnerName());
+	if (object != NULL) {
+		//re-apply state
+		object->recomputeMatrix(action->getStoredMatrix().getMatrix());
+		object->setPosition(action->getStorePos());
+		object->setRotation(action->getStoredOrientation().x, action->getStoredOrientation().y, action->getStoredOrientation().z);
+		object->setScale(action->getStoredScale());
+
+	}
+}
 
 GameObjectManager* GameObjectManager::getInstance()
 {
@@ -178,6 +192,20 @@ void GameObjectManager::setSelectedObject(AGameObject* gameObject)
 AGameObject* GameObjectManager::getSelectedObject()
 {
 	return this->selectedObject;
+}
+
+void GameObjectManager::saveEditStates()
+{
+	for (int i = 0; i < this->gameObjectList.size(); i++) {
+		this->gameObjectList[i]->saveEditState();
+	}
+}
+
+void GameObjectManager::restoreEditStates()
+{
+	for (int i = 0; i < this->gameObjectList.size(); i++) {
+		this->gameObjectList[i]->restoreEditState();
+	}
 }
 
 void GameObjectManager::createObjectFromFile(String objectName, AGameObject::PrimitiveType objectType, Vector3D position, Vector3D rotation, Vector3D scale)

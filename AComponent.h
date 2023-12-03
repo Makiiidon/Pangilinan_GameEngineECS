@@ -12,6 +12,10 @@ public:
 
 	void attachOwner(AGameObject* owner);
 	void detachOwner();
+
+	bool isEnabled();
+	void setEnabled(bool value);
+
 	AGameObject* getOwner();
 	ComponentType getType();
 	String getName();
@@ -22,5 +26,6 @@ protected:
 	AGameObject* owner;
 	ComponentType type;
 	String name;
+	bool enabled = true;
 };
 

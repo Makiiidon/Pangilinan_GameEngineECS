@@ -9,6 +9,7 @@
 class VertexShader;
 class PixelShader;
 class GameObjectManager;
+class EditorAction;
 
 class AGameObject
 {
@@ -61,6 +62,10 @@ public:
 	void updateLocalMatrix(); //updates local matrix based from latest position, rotation, and scale.
 	float* getRawMatrix();
 
+	Matrix4x4 getLocalMatrix();
+	void saveEditState();
+	void restoreEditState();
+	EditorAction* getEditState();
 	enum PrimitiveType {
 		TEXTURED_CUBE,
 		CUBE,
@@ -103,6 +108,9 @@ protected:
 
 private:
 	bool enabled = true;
+
+	EditorAction* lastEditState = NULL; //used for storing the state of this object prior to play mode.
+
 	PrimitiveType objectType;
 
 	friend class GameObjectManager;

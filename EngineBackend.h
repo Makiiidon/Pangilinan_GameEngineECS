@@ -13,6 +13,7 @@ public:
 	};
 
 	void setMode(EditorMode mode);
+	bool insideFrameStep();
 	void startFrameStep();
 	void endFrameStep();
 	EditorMode getMode();

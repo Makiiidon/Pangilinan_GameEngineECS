@@ -8,6 +8,8 @@
 #include "ObjectRenderer.h"
 #include "StringUtils.h"
 #include "MaterialScreen.h"
+#include "PhysicsComponent.h"
+#include "ActionHistory.h"
 
 void InspectorScreen::SendResult(String materialPath)
 {
@@ -45,6 +47,9 @@ void InspectorScreen::drawUI()
 
 		if(selectedObject->getObjectType() == AGameObject::TEXTURED_CUBE)
 			this->drawMaterialsTab();
+
+		
+		drawPhysicsTab();
 	}
 	else {
 		ImGui::Text("No object selected. Select an object first.");
@@ -89,6 +94,78 @@ void InspectorScreen::FormatMatImage()
 	this->materialDisplay = static_cast<Texture*>(TextureManager::getInstance()->createTextureFromFile(texturePath));
 }
 
+void InspectorScreen::drawPhysicsTab()
+{
+	int BUTTON_WIDTH = 225;
+	int BUTTON_HEIGHT = 20;
+	bool hasRigidbody = false;
+	if (selectedObject->findComponentByName("PhysicsComponent") != NULL) 
+	{
+		hasRigidbody = true;
+	}
+
+	if (hasRigidbody) {
+
+		PhysicsComponent* component = (PhysicsComponent*)selectedObject->findComponentByName("PhysicsComponent");
+		mass = component->getRigidBody()->getMass();
+
+		static bool isStatic = component->getRigidBody()->getType() == BodyType::STATIC;
+		static bool isRBEnabled = component->isEnabled();
+
+		bool ignoreStatic = false;
+		
+		if (component->getRigidBody()->getType() == BodyType::KINEMATIC) {
+			ignoreStatic = true;
+		}
+		
+		//isRBEnabled = component->isEnabled();
+		ImGui::Checkbox("Rigidbody", &isRBEnabled);
+		component->setEnabled(isRBEnabled);
+
+		if (!isRBEnabled) {
+			if (!ignoreStatic)
+				component->getRigidBody()->setType(BodyType::STATIC);
+			return;
+		}
+		else {
+			if (!ignoreStatic)
+				component->getRigidBody()->setType(BodyType::DYNAMIC);
+		}
+
+		ImGui::Indent();
+
+		ImGui::Checkbox("Static", &isStatic);
+
+		if (!ignoreStatic) {
+			if (isStatic)
+				component->getRigidBody()->setType(BodyType::STATIC);
+			else
+				component->getRigidBody()->setType(BodyType::DYNAMIC);
+		}
+		
+		ImGui::Checkbox("Gravity", &isGravityEnabled);
+		component->getRigidBody()->enableGravity(isGravityEnabled);
+		ImGui::DragFloat("Mass", &mass, 1.0f);
+		component->getRigidBody()->setMass(mass);
+
+
+		ImGui::DragFloat3("Direction: ", addForce, 10.0f);
+
+		if (ImGui::Button("Add Force")) 
+		{
+			component->getRigidBody()->applyWorldForceAtCenterOfMass(Vector3(addForce[0], addForce[1], addForce[2]));
+		}
+		
+	}
+	else {
+		ImGui::Text("Rigidbody: None");
+		if (ImGui::Button("Add Rigidbody", ImVec2(BUTTON_WIDTH, BUTTON_HEIGHT))) 
+		{
+			this->selectedObject->attachComponent(new PhysicsComponent("PhysicsComponent", this->selectedObject));
+		}
+	}
+}
+
 void InspectorScreen::updateTransformDisplays()
 {
 	Vector3D pos = this->selectedObject->getLocalPosition();
@@ -118,8 +195,11 @@ void InspectorScreen::deleteSelected()
 void InspectorScreen::onTransformUpdate()
 {
 	if (this->selectedObject != NULL) {
+		ActionHistory::getInstance()->startRecordAction(this->selectedObject);
 		this->selectedObject->setPosition(Vector3D(this->positionDisplay[0], this->positionDisplay[1], this->positionDisplay[2]));
 		this->selectedObject->setRotation(Vector3D(this->rotationDisplay[0], this->rotationDisplay[1], this->rotationDisplay[2]));
 		this->selectedObject->setScale(Vector3D(this->scaleDisplay[0], this->scaleDisplay[1], this->scaleDisplay[2]));
+		ActionHistory::getInstance()->endRecordAction(this->selectedObject);
+
 	}
 }

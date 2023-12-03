@@ -24,6 +24,8 @@
 #include "PhysicsSystem.h"
 #include "ShaderLibrary.h"
 #include "TextureManager.h"
+#include "EngineBackend.h"
+#include "ActionHistory.h"
 
 using namespace reactphysics3d;
 
@@ -46,12 +48,30 @@ void AppWindow::onUpdate()
 	GraphicsEngine::get()->getImmediateDeviceContext()->setViewportSize(width, height);
 
 	// Update rest of the systems
-	GameObjectManager::getInstance()->updateAll();
-	BaseComponentSystem::getInstance()->getPhysicsSystem()->updateAllComponents();
+	EngineBackend* backend = EngineBackend::getInstance();
+	switch (backend->getMode()) 
+	{
+	case EngineBackend::EditorMode::EDITOR: 
+		GameObjectManager::getInstance()->updateAll();
+
+		break;
+
+	case EngineBackend::EditorMode::PLAY:
+		BaseComponentSystem::getInstance()->getPhysicsSystem()->updateAllComponents();
+		GameObjectManager::getInstance()->updateAll();
+
+		break;
+	case EngineBackend::EditorMode::PAUSED:
+		if (backend->insideFrameStep()) {
+			BaseComponentSystem::getInstance()->getPhysicsSystem()->updateAllComponents();
+			GameObjectManager::getInstance()->updateAll();
+			backend->endFrameStep();
+		}
+		break;
+	}
 	GameObjectManager::getInstance()->renderAll(width, height);
 	SceneCameraHandler::getInstance()->update();
 	UIManager::getInstance()->drawAllUI();
-
 	m_swap_chain->present(true);
 }
 
@@ -73,7 +93,8 @@ void AppWindow::onDestroy()
 	GameObjectManager::destroy();
 	GraphicsEngine::get()->release();
 	UIManager::destroy();
-
+	EngineBackend::destroy();
+	ActionHistory::destroy();
 	ImGui_ImplDX11_Shutdown();
 	ImGui_ImplWin32_Shutdown();
 	ImGui::DestroyContext();
@@ -96,8 +117,9 @@ void AppWindow::initializeEngine()
 
 	GameObjectManager::initialize();
 	BaseComponentSystem::initialize();
-
+	EngineBackend::initialize();
 	SceneCameraHandler::initialize();
+	ActionHistory::initialize();
 }
 
 void AppWindow::initializeUI()

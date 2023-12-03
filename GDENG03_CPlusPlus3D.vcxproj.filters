@@ -84,6 +84,9 @@
     <Filter Include="Source Files\GameEngine\EngineBackend">
       <UniqueIdentifier>{a642490d-a660-492b-8bd1-cdc910352c9e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Editor\Actions">
+      <UniqueIdentifier>{5de9f7f7-2972-4fff-b154-b7514c771e3e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Window.cpp">
@@ -264,6 +267,15 @@
       <Filter>Source Files\GameEngine\FileManagement</Filter>
     </ClCompile>
     <ClCompile Include="EngineBackend.cpp">
+      <Filter>Source Files\GameEngine\EngineBackend</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorAction.cpp">
+      <Filter>Source Files\Editor\Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionMemento.cpp">
+      <Filter>Source Files\Editor\Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionHistory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -451,7 +463,16 @@
     <ClInclude Include="SceneWriter.h">
       <Filter>Source Files\GameEngine\FileManagement</Filter>
     </ClInclude>
-    <ClInclude Include="EngineBackend.h" />
+    <ClInclude Include="EngineBackend.h">
+      <Filter>Source Files\GameEngine\EngineBackend</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorAction.h">
+      <Filter>Source Files\Editor\Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionMemento.h">
+      <Filter>Source Files\Editor\Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionHistory.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="VertexShader.hlsl">

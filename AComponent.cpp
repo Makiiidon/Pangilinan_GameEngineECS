@@ -25,6 +25,16 @@ void AComponent::detachOwner()
     this->owner = NULL;
 }
 
+bool AComponent::isEnabled()
+{
+    return enabled;
+}
+
+void AComponent::setEnabled(bool value)
+{
+    enabled = value;
+}
+
 AGameObject* AComponent::getOwner()
 {
     return this->owner;

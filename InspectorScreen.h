@@ -16,8 +16,11 @@ private:
 
 	void onTransformUpdate();
 	virtual void drawUI() override;
+
 	void drawMaterialsTab();
 	void FormatMatImage();
+	void drawPhysicsTab();
+
 	void updateTransformDisplays();
 	void deleteSelected();
 	friend class UIManager;
@@ -32,5 +35,9 @@ private:
 	ImGui::FileBrowser* openFileDialog;
 	String materialPath, materialName;
 	Texture* materialDisplay;
+	float mass;
+	float addForce[3];
+	bool isGravityEnabled = true;
+
 };
 

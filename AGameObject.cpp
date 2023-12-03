@@ -1,5 +1,6 @@
 #include "AGameObject.h"
 #include "GameObjectManager.h"
+#include "EditorAction.h"
 
 AGameObject::AGameObject(std::string name)
 {
@@ -200,6 +201,38 @@ float* AGameObject::getRawMatrix()
 {
 	float* matrix4x4 = this->localMatrix.getMatrix();
 	return matrix4x4;
+}
+
+Matrix4x4 AGameObject::getLocalMatrix()
+{
+	return this->localMatrix;
+}
+
+void AGameObject::saveEditState()
+{
+	if (this->lastEditState == NULL) {
+		this->lastEditState = new EditorAction(this);
+	}
+}
+
+void AGameObject::restoreEditState()
+{
+	if (this->lastEditState != NULL) {
+		this->localPosition = this->lastEditState->getStorePos();
+		this->localScale = this->lastEditState->getStoredScale();
+		this->orientation = this->lastEditState->getStoredOrientation();
+		this->localMatrix = this->lastEditState->getStoredMatrix();
+
+		this->lastEditState = NULL;
+	}
+	else {
+		std::cout << "Edit state is null. Cannot restore. \n";
+	}
+}
+
+EditorAction* AGameObject::getEditState()
+{
+	return lastEditState;
 }
 
 Vector3D AGameObject::getLocalScale()

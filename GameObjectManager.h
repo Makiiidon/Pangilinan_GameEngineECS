@@ -5,12 +5,16 @@
 #include <unordered_map>
 #include "AGameObject.h"
 
+class EditorAction;
+
 class GameObjectManager
 {
 public:
 	typedef std::string String;
 	typedef std::vector<AGameObject*> List;
 	typedef std::unordered_map<String, AGameObject*> HashTable;
+
+	void applyEditorAction(EditorAction* action);
 
 	enum PrimitiveType {
 		TEXTURED_CUBE,
@@ -38,6 +42,9 @@ public:
 	void setSelectedObject(String name);
 	void setSelectedObject(AGameObject* gameObject);
 	AGameObject* getSelectedObject();
+
+	void saveEditStates();
+	void restoreEditStates();
 
 	void createObjectFromFile(String objectName, AGameObject::PrimitiveType objectType, Vector3D position, Vector3D rotation, Vector3D scale);
 

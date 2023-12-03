@@ -47,9 +47,27 @@ void ScenePlayOptions::drawUI()
 
 	if (isPlay) {
 		ImGui::SameLine();
-		if (ImGui::Button("Reset")) { // Remove and Reapply
-			
+		std::string pauseText = "Pause";
+		if (isPaused) 
+		{
+			pauseText = "Resume";
 		}
+		if (ImGui::Button(pauseText.c_str())) // Pauses
+		{ 
+
+			
+			isPaused = !isPaused;
+
+		}
+		if (isPaused)
+		{
+			ImGui::SameLine();
+			if (ImGui::Button("Frame Step")) // Next Frame Step
+			{
+
+			}
+		}
+		
 	}
 
 
