@@ -24,9 +24,7 @@ void ActionHistory::startRecordAction(AGameObject* gameObject)
 {
 	if (EngineBackend::getInstance()->getMode() == EngineBackend::EditorMode::EDITOR) {
 		// Change into Memento
-		ActionMemento* editorAction = new ActionMemento(new EditorAction(gameObject), NULL);
-		this->actionsPerformed.push(editorAction);
-
+		oldEditorAction = new EditorAction(gameObject);
 		//std::cout << "Stored action " << gameObject->getName() << "\n";
 	}
 }
@@ -35,7 +33,7 @@ void ActionHistory::endRecordAction(AGameObject* gameObject)
 {
 	if (EngineBackend::getInstance()->getMode() == EngineBackend::EditorMode::EDITOR) {
 		// Change into Memento
-		ActionMemento* editorAction = new ActionMemento(new EditorAction(gameObject), NULL);
+		ActionMemento* editorAction = new ActionMemento(oldEditorAction, new EditorAction(gameObject));
 		this->actionsPerformed.push(editorAction);
 
 		//std::cout << "Stored action " << gameObject->getName() << "\n";
@@ -64,6 +62,7 @@ EditorAction* ActionHistory::undoAction()
 		// change into Memento
 		ActionMemento* action = this->actionsPerformed.top();
 		this->actionsUndid.push(action);
+		this->actionsPerformed.pop();
 		return action->getOldAction();
 	}
 	else {
@@ -83,8 +82,9 @@ EditorAction* ActionHistory::redoAction()
 	if (this->hasRemainingRedoActions()) {
 		// Change into Memento
 		ActionMemento* action = actionsUndid.top();
+		this->actionsUndid.pop();
 		this->actionsPerformed.push(action);
-		return action->getOldAction();
+		return action->getNewAction();
 	}
 	else {
 		//std::cout << "No more actions remaining. \n";
