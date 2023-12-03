@@ -276,7 +276,7 @@
       <Filter>Source Files\Editor\Actions</Filter>
     </ClCompile>
     <ClCompile Include="ActionHistory.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Editor\Actions</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -472,7 +472,9 @@
     <ClInclude Include="ActionMemento.h">
       <Filter>Source Files\Editor\Actions</Filter>
     </ClInclude>
-    <ClInclude Include="ActionHistory.h" />
+    <ClInclude Include="ActionHistory.h">
+      <Filter>Source Files\Editor\Actions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="VertexShader.hlsl">

@@ -63,6 +63,7 @@ void AppWindow::onUpdate()
 		break;
 	case EngineBackend::EditorMode::PAUSED:
 		if (backend->insideFrameStep()) {
+			backend->startFrameStep();
 			BaseComponentSystem::getInstance()->getPhysicsSystem()->updateAllComponents();
 			GameObjectManager::getInstance()->updateAll();
 			backend->endFrameStep();
