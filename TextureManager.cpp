@@ -28,7 +28,7 @@ Texture* TextureManager::createTextureFromFile(const wchar_t* filePath)
 		this->resourceMap[fullPath] = this->convertToResource(filePath);
 	}
 
-	std::cout << fullPath.c_str() << "\n";
+	//std::cout << fullPath.c_str() << "\n";
 
 	return (Texture*)this->resourceMap[fullPath];
 }
