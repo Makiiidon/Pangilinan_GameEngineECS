@@ -16,8 +16,8 @@ SceneReader::~SceneReader()
 
 void SceneReader::readFromFile()
 {
-	String fileDir = this->directory + ".json";
-	if (this->directory.find(".json") != String::npos) {
+	String fileDir = this->directory + ".iet";
+	if (this->directory.find(".iet") != String::npos) {
 		fileDir = this->directory;
 	}
 	GameObjectManager::getInstance()->deleteAllObjects();
@@ -29,6 +29,7 @@ void SceneReader::readFromFile()
 
 	String objectName;
 	AGameObject::PrimitiveType objectType;
+	String path;
 	Vector3D position;
 	Vector3D rotation;
 	Vector3D scale;
@@ -37,27 +38,28 @@ void SceneReader::readFromFile()
 			objectName = readLine;
 			index++;
 		}
-		else if (index == 1) {
-			std::vector stringSplit = StringUtils::split(readLine, ' ');
+		else if (index == 1) { // Type
+			std::vector stringSplit = StringUtils::split(readLine, '|');
 			objectType = (AGameObject::PrimitiveType)std::stoi(stringSplit[1]);
+			path = stringSplit[2];
 			index++;
 		}
-		else if (index == 2) {
-			std::vector stringSplit = StringUtils::split(readLine, ' ');
+		else if (index == 2) { // Position
+			std::vector stringSplit = StringUtils::split(readLine, '|');
 			position = Vector3D(std::stof(stringSplit[1]), std::stof(stringSplit[2]), std::stof(stringSplit[3]));
 			index++;
 		}
-		else if (index == 3) {
-			std::vector stringSplit = StringUtils::split(readLine, ' ');
+		else if (index == 3) { // Rotation
+			std::vector stringSplit = StringUtils::split(readLine, '|');
 			rotation = Vector3D(std::stof(stringSplit[1]), std::stof(stringSplit[2]), std::stof(stringSplit[3]));
 			index++;
 		}
-		else if (index == 4) {
-			std::vector stringSplit = StringUtils::split(readLine, ' ');
+		else if (index == 4) { // Scale
+			std::vector stringSplit = StringUtils::split(readLine, '|');
 			scale = Vector3D(std::stof(stringSplit[1]), std::stof(stringSplit[2]), std::stof(stringSplit[3]));
 			index = 0;
 
-			GameObjectManager::getInstance()->createObjectFromFile(objectName, objectType, position, rotation, scale);
+			GameObjectManager::getInstance()->createObjectFromFile(objectName, objectType, position, rotation, scale, path);
 		}
 	}
 }

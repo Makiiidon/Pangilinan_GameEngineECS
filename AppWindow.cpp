@@ -53,14 +53,13 @@ void AppWindow::onUpdate()
 	{
 	case EngineBackend::EditorMode::EDITOR: 
 		GameObjectManager::getInstance()->updateAll();
-
 		break;
 
 	case EngineBackend::EditorMode::PLAY:
 		BaseComponentSystem::getInstance()->getPhysicsSystem()->updateAllComponents();
 		GameObjectManager::getInstance()->updateAll();
-
 		break;
+
 	case EngineBackend::EditorMode::PAUSED:
 		if (backend->insideFrameStep()) {
 			backend->startFrameStep();

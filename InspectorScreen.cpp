@@ -84,7 +84,7 @@ void InspectorScreen::FormatMatImage()
 {
 	//convert to wchar format
 	String textureString = this->materialPath;
-	std::cout << " Tex: " << textureString << "\n";
+	//std::cout << " Tex: " << textureString << "\n";
 	std::wstring widestr = std::wstring(textureString.begin(), textureString.end());
 	const wchar_t* texturePath = widestr.c_str();
 

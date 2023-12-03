@@ -2,6 +2,8 @@
 #include "GameObjectManager.h"
 #include <fstream>
 #include "StringUtils.h"
+#include "TexturedCube.h"
+#include "ObjectRenderer.h"
 
 
 void SceneWriter::setDirectory(String directory)
@@ -11,8 +13,8 @@ void SceneWriter::setDirectory(String directory)
 
 void SceneWriter::writeToFile()
 {
-	String fileDir = this->directory + ".json";
-	if (this->directory.find(".json") != String::npos) 
+	String fileDir = this->directory + ".iet";
+	if (this->directory.find(".iet") != String::npos) 
 	{
 		fileDir = this->directory;
 	}
@@ -30,11 +32,15 @@ void SceneWriter::writeToFile()
 		Vector3D position = allObjects[i]->getLocalPosition();
 		Vector3D rotation = allObjects[i]->getLocalRotation();
 		Vector3D scale = allObjects[i]->getLocalScale();
-
-		sceneFile << "Type: " << allObjects[i]->getObjectType() << std::endl;
-		sceneFile << "Position: "	<< position.getX()	<< " " << position.getY() << " "	<< position.getZ()	<< " " << std::endl;
-		sceneFile << "Rotation: "	<< rotation.getX()	<< " " << rotation.getY() << " "	<< rotation.getZ()	<< " " << std::endl;
-		sceneFile << "Scale: "		<< scale.getX()		<< " " << scale.getY() << " "		<< scale.getZ()		<< " " << std::endl;
+		std::string path = "none";
+		if (allObjects[i]->getObjectType() == AGameObject::PrimitiveType::TEXTURED_CUBE) {
+			path = static_cast<TexturedCube*>(allObjects[i])->getRenderer()->getMaterialPath();
+		}
+			
+		sceneFile << "Type:|" << allObjects[i]->getObjectType() << "|" << path << std::endl;
+		sceneFile << "Position:|"	<< position.getX()	<< "|" << position.getY() << "|"	<< position.getZ()	<< "|" << std::endl;
+		sceneFile << "Rotation:|"	<< rotation.getX()	<< "|" << rotation.getY() << "|"	<< rotation.getZ()	<< "|" << std::endl;
+		sceneFile << "Scale:|"		<< scale.getX()		<< "|" << scale.getY() << "|"		<< scale.getZ()		<< "|" << std::endl;
 	}
 	sceneFile.close();
 }

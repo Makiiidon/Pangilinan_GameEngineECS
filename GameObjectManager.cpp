@@ -8,6 +8,9 @@
 #include "PhysicsPlane.h"
 #include "TexturedCube.h"
 #include "EditorAction.h"
+#include "ObjectRenderer.h"
+#include "TextureManager.h"
+#include "GraphicsEngine.h"
 
 GameObjectManager* GameObjectManager::sharedInstance = NULL;
 
@@ -208,7 +211,7 @@ void GameObjectManager::restoreEditStates()
 	}
 }
 
-void GameObjectManager::createObjectFromFile(String objectName, AGameObject::PrimitiveType objectType, Vector3D position, Vector3D rotation, Vector3D scale)
+void GameObjectManager::createObjectFromFile(String objectName, AGameObject::PrimitiveType objectType, Vector3D position, Vector3D rotation, Vector3D scale, String path)
 {
 	if (objectType == PrimitiveType::CUBE) {
 		Cube* cube = new Cube(objectName);
@@ -231,6 +234,13 @@ void GameObjectManager::createObjectFromFile(String objectName, AGameObject::Pri
 		cube->setPosition(position);
 		cube->setRotation(rotation);
 		cube->setScale(scale);
+		cube->getRenderer()->setRenderer(path);
+
+		String textureString = path;
+		std::wstring widestr = std::wstring(textureString.begin(), textureString.end());
+		const wchar_t* texturePath = widestr.c_str();
+
+		static_cast<TexturedCube*>(cube)->getRenderer()->setTexture(TextureManager::getInstance()->createTextureFromFile(texturePath));
 		this->addObject(cube);
 	}
 
