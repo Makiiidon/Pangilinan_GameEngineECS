@@ -1,10 +1,105 @@
 Plane_Physics
-Type:|5|none|1|500|
+Type:|5|none|1|500|1|
 Position:|0|-5|0|
 Rotation:|0|0|0|
 Scale:|32|0.2|32|
-Cube
-Type:|1|none|1|500|
-Position:|0|0|0|
+Cube_Physics
+Type:|4|none|1|500|1|
+Position:|0|5|0|
+Rotation:|0|0|0|
+Scale:|1|1|1|
+Cube_Physics (1)
+Type:|4|none|1|500|1|
+Position:|0|5|0|
+Rotation:|0|0|0|
+Scale:|1|1|1|
+Cube_Physics (2)
+Type:|4|none|1|500|1|
+Position:|0|5|0|
+Rotation:|0|0|0|
+Scale:|1|1|1|
+Cube_Physics (3)
+Type:|4|none|1|500|1|
+Position:|0|5|0|
+Rotation:|0|0|0|
+Scale:|1|1|1|
+Cube_Physics (4)
+Type:|4|none|1|500|1|
+Position:|0|5|0|
+Rotation:|0|0|0|
+Scale:|1|1|1|
+Cube_Physics (5)
+Type:|4|none|1|500|1|
+Position:|0|5|0|
+Rotation:|0|0|0|
+Scale:|1|1|1|
+Cube_Physics (6)
+Type:|4|none|1|500|1|
+Position:|0|5|0|
+Rotation:|0|0|0|
+Scale:|1|1|1|
+Cube_Physics (7)
+Type:|4|none|1|500|1|
+Position:|0|5|0|
+Rotation:|0|0|0|
+Scale:|1|1|1|
+Cube_Physics (8)
+Type:|4|none|1|500|1|
+Position:|0|5|0|
+Rotation:|0|0|0|
+Scale:|1|1|1|
+Cube_Physics (9)
+Type:|4|none|1|500|1|
+Position:|0|5|0|
+Rotation:|0|0|0|
+Scale:|1|1|1|
+Cube_Physics (10)
+Type:|4|none|1|500|1|
+Position:|0|5|0|
+Rotation:|0|0|0|
+Scale:|1|1|1|
+Cube_Physics (11)
+Type:|4|none|1|500|1|
+Position:|0|5|0|
+Rotation:|0|0|0|
+Scale:|1|1|1|
+Cube_Physics (12)
+Type:|4|none|1|500|1|
+Position:|0|5|0|
+Rotation:|0|0|0|
+Scale:|1|1|1|
+Cube_Physics (13)
+Type:|4|none|1|500|1|
+Position:|0|5|0|
+Rotation:|0|0|0|
+Scale:|1|1|1|
+Cube_Physics (14)
+Type:|4|none|1|500|1|
+Position:|0|5|0|
+Rotation:|0|0|0|
+Scale:|1|1|1|
+Cube_Physics (15)
+Type:|4|none|1|500|1|
+Position:|0|5|0|
+Rotation:|0|0|0|
+Scale:|1|1|1|
+Cube_Physics (16)
+Type:|4|none|1|500|1|
+Position:|0|5|0|
+Rotation:|0|0|0|
+Scale:|1|1|1|
+Cube_Physics (17)
+Type:|4|none|1|500|1|
+Position:|0|5|0|
+Rotation:|0|0|0|
+Scale:|1|1|1|
+Cube_Physics (18)
+Type:|4|none|1|500|1|
+Position:|0|5|0|
+Rotation:|0|0|0|
+Scale:|1|1|1|
+Cube_Physics (19)
+Type:|4|none|1|500|0|
+Position:|0|5|0|
 Rotation:|0|0|0|
 Scale:|1|1|1|

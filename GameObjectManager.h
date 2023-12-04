@@ -46,7 +46,7 @@ public:
 	void saveEditStates();
 	void restoreEditStates();
 
-	void createObjectFromFile(String objectName, AGameObject::PrimitiveType objectType, Vector3D position, Vector3D rotation, Vector3D scale, String path, float mass);
+	void createObjectFromFile(String objectName, AGameObject::PrimitiveType objectType, Vector3D position, Vector3D rotation, Vector3D scale, String path, float mass, bool hasGravity);
 
 private:
 	GameObjectManager();

@@ -212,7 +212,7 @@ void GameObjectManager::restoreEditStates()
 	}
 }
 
-void GameObjectManager::createObjectFromFile(String objectName, AGameObject::PrimitiveType objectType, Vector3D position, Vector3D rotation, Vector3D scale, String path, float mass)
+void GameObjectManager::createObjectFromFile(String objectName, AGameObject::PrimitiveType objectType, Vector3D position, Vector3D rotation, Vector3D scale, String path, float mass, bool hasGravity)
 {
 	if (objectType == PrimitiveType::CUBE) {
 		Cube* cube = new Cube(objectName);
@@ -251,6 +251,7 @@ void GameObjectManager::createObjectFromFile(String objectName, AGameObject::Pri
 		cube->setRotation(rotation);
 		cube->setScale(scale);
 		static_cast<PhysicsComponent*>(cube->findComponentByName("PhysicsComponent"))->getRigidBody()->setMass(mass);
+		static_cast<PhysicsComponent*>(cube->findComponentByName("PhysicsComponent"))->getRigidBody()->enableGravity(hasGravity);
 		this->addObject(cube);
 	}
 

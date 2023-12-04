@@ -35,11 +35,13 @@ void SceneWriter::writeToFile()
 		Vector3D scale = allObjects[i]->getLocalScale();
 		float mass = 0;
 		bool hasRigidbody = false;
+		bool isGravityEnabled = true;
 
 		if (allObjects[i]->findComponentByName("PhysicsComponent")) 
 		{
 			mass = static_cast<PhysicsComponent*>(allObjects[i]->findComponentByName("PhysicsComponent"))->getRigidBody()->getMass();
 			hasRigidbody = true;
+			isGravityEnabled = static_cast<PhysicsComponent*>(allObjects[i]->findComponentByName("PhysicsComponent"))->getRigidBody()->isGravityEnabled();
 		}
 
 		std::string path = "none";
@@ -47,7 +49,7 @@ void SceneWriter::writeToFile()
 			path = static_cast<TexturedCube*>(allObjects[i])->getRenderer()->getMaterialPath();
 		}
 			
-		sceneFile << "Type:|" << allObjects[i]->getObjectType() << "|" << path << "|" << hasRigidbody << "|" << mass << "|" << std::endl;
+		sceneFile << "Type:|" << allObjects[i]->getObjectType() << "|" << path << "|" << hasRigidbody << "|" << mass << "|"  << isGravityEnabled << "|" << std::endl;
 		sceneFile << "Position:|"	<< position.getX()	<< "|" << position.getY() << "|"	<< position.getZ()	<< "|" << std::endl;
 		sceneFile << "Rotation:|"	<< rotation.getX()	<< "|" << rotation.getY() << "|"	<< rotation.getZ()	<< "|" << std::endl;
 		sceneFile << "Scale:|"		<< scale.getX()		<< "|" << scale.getY() << "|"		<< scale.getZ()		<< "|" << std::endl;
