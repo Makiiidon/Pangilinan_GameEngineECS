@@ -13,8 +13,8 @@ void SceneWriter::setDirectory(String directory)
 
 void SceneWriter::writeToFile()
 {
-	String fileDir = this->directory + ".iet";
-	if (this->directory.find(".iet") != String::npos) 
+	String fileDir = this->directory + ".level";
+	if (this->directory.find(".level") != String::npos) 
 	{
 		fileDir = this->directory;
 	}

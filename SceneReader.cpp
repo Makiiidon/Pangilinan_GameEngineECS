@@ -16,8 +16,8 @@ SceneReader::~SceneReader()
 
 void SceneReader::readFromFile()
 {
-	String fileDir = this->directory + ".iet";
-	if (this->directory.find(".iet") != String::npos) {
+	String fileDir = this->directory + ".level";
+	if (this->directory.find(".level") != String::npos) {
 		fileDir = this->directory;
 	}
 	GameObjectManager::getInstance()->deleteAllObjects();

@@ -14,11 +14,11 @@ MenuScreen::MenuScreen() : AUIScreen("MenuScreen")
 {
 	saveFileDialog = new ImGui::FileBrowser(ImGuiFileBrowserFlags_EnterNewFilename);
 	saveFileDialog->SetTitle("Save Scene");
-	saveFileDialog->SetTypeFilters({ ".iet" });
+	saveFileDialog->SetTypeFilters({ ".level" });
 
 	openFileDialog = new ImGui::FileBrowser();
 	openFileDialog->SetTitle("Open Scene");
-	openFileDialog->SetTypeFilters({ ".iet" });
+	openFileDialog->SetTypeFilters({ ".level" });
 }
 
 MenuScreen::~MenuScreen()
