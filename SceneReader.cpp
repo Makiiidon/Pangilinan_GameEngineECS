@@ -33,6 +33,8 @@ void SceneReader::readFromFile()
 	Vector3D position;
 	Vector3D rotation;
 	Vector3D scale;
+	bool hasRigidbody = false;
+	float mass = 0;
 	while (std::getline(sceneFile, readLine)) {
 		if (index == 0) {
 			objectName = readLine;
@@ -42,6 +44,9 @@ void SceneReader::readFromFile()
 			std::vector stringSplit = StringUtils::split(readLine, '|');
 			objectType = (AGameObject::PrimitiveType)std::stoi(stringSplit[1]);
 			path = stringSplit[2];
+			hasRigidbody = std::stof(stringSplit[3]);
+			mass = std::stof(stringSplit[4]);
+			if (objectType == AGameObject::PrimitiveType::CUBE && hasRigidbody) objectType = AGameObject::PrimitiveType::PHYSICS_CUBE;
 			index++;
 		}
 		else if (index == 2) { // Position
@@ -59,7 +64,7 @@ void SceneReader::readFromFile()
 			scale = Vector3D(std::stof(stringSplit[1]), std::stof(stringSplit[2]), std::stof(stringSplit[3]));
 			index = 0;
 
-			GameObjectManager::getInstance()->createObjectFromFile(objectName, objectType, position, rotation, scale, path);
+			GameObjectManager::getInstance()->createObjectFromFile(objectName, objectType, position, rotation, scale, path, mass);
 		}
 	}
 }

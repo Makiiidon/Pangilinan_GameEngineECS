@@ -4,6 +4,7 @@
 #include "StringUtils.h"
 #include "TexturedCube.h"
 #include "ObjectRenderer.h"
+#include "PhysicsComponent.h"
 
 
 void SceneWriter::setDirectory(String directory)
@@ -32,12 +33,21 @@ void SceneWriter::writeToFile()
 		Vector3D position = allObjects[i]->getLocalPosition();
 		Vector3D rotation = allObjects[i]->getLocalRotation();
 		Vector3D scale = allObjects[i]->getLocalScale();
+		float mass = 0;
+		bool hasRigidbody = false;
+
+		if (allObjects[i]->findComponentByName("PhysicsComponent")) 
+		{
+			mass = static_cast<PhysicsComponent*>(allObjects[i]->findComponentByName("PhysicsComponent"))->getRigidBody()->getMass();
+			hasRigidbody = true;
+		}
+
 		std::string path = "none";
 		if (allObjects[i]->getObjectType() == AGameObject::PrimitiveType::TEXTURED_CUBE) {
 			path = static_cast<TexturedCube*>(allObjects[i])->getRenderer()->getMaterialPath();
 		}
 			
-		sceneFile << "Type:|" << allObjects[i]->getObjectType() << "|" << path << std::endl;
+		sceneFile << "Type:|" << allObjects[i]->getObjectType() << "|" << path << "|" << hasRigidbody << "|" << mass << "|" << std::endl;
 		sceneFile << "Position:|"	<< position.getX()	<< "|" << position.getY() << "|"	<< position.getZ()	<< "|" << std::endl;
 		sceneFile << "Rotation:|"	<< rotation.getX()	<< "|" << rotation.getY() << "|"	<< rotation.getZ()	<< "|" << std::endl;
 		sceneFile << "Scale:|"		<< scale.getX()		<< "|" << scale.getY() << "|"		<< scale.getZ()		<< "|" << std::endl;
