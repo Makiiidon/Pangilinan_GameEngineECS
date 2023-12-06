@@ -1066,7 +1066,7 @@ MonoBehaviour:
   plane: {fileID: 7875277497450882793, guid: ab26d95e5596b874e8aba9a0194acf0c, type: 3}
   cube: {fileID: 7207532920295103927, guid: 8f944c75e27750148bbabab1a97dbab7, type: 3}
   loadPath: Assets/p6Test.level
-  savePath: Assets/TestCase2.level
+  savePath: Assets/test_2.level
 --- !u!4 &1273775198
 Transform:
   m_ObjectHideFlags: 0

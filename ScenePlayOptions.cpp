@@ -31,8 +31,14 @@ void ScenePlayOptions::drawUI()
 			for (int i = 0; i < components.size(); i++) {
 				if (components[i]->getRigidBody()->getType() != BodyType::KINEMATIC) 
 				{
+					float mass = components[i]->getRigidBody()->getMass();
+					bool enableGravity = components[i]->getRigidBody()->isGravityEnabled();
 					components[i]->getOwner()->detachComponent(components[i]);
-					components[i]->getOwner()->attachComponent(new PhysicsComponent("PhysicsComponent", components[i]->getOwner()));
+					PhysicsComponent* newComp = new PhysicsComponent("PhysicsComponent", components[i]->getOwner());
+					newComp->getRigidBody()->setMass(mass);
+					newComp->getRigidBody()->enableGravity(enableGravity);
+					components[i]->getOwner()->attachComponent(newComp);
+
 					delete components[i];
 				}
 				/*if (components[i]->getRigidBody()->getType() == BodyType::KINEMATIC)

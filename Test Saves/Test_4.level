@@ -1,0 +1,30 @@
+Cube
+Type:|1|none|1|1|1|
+Position:|4|1.2|0|
+Rotation:|0|0|0|
+Scale:|1|1|1|
+Cube (1)
+Type:|1|none|1|1|0|
+Position:|0|0|0|
+Rotation:|0|26.4|-38|
+Scale:|1|1|1|
+Cube (2)
+Type:|1|none|1|2|1|
+Position:|-2.2|3.6|0|
+Rotation:|0|40|-59.2|
+Scale:|1|1|1|
+Cube (3)
+Type:|1|none|1|4|1|
+Position:|-5.9|4.6|0|
+Rotation:|0|4|42.8|
+Scale:|1|1|1|
+Cube (4)
+Type:|1|none|1|5|1|
+Position:|2.8|2.6|0|
+Rotation:|0|-73.6|0|
+Scale:|1|1|1|
+Plane_Physics
+Type:|5|none|1|1|0|
+Position:|0|-5|0|
+Rotation:|0|0|0|
+Scale:|32|0.2|32|
