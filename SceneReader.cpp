@@ -92,14 +92,12 @@ void SceneReader::readFromYAMLFile()
 	Vector3D position;
 	Vector3D rotation;
 	Vector3D scale;
-	bool hasRigidbody = false;
 	float mass = 0;
 	bool isGravityEnabled = true;
 
-	bool isGameObject = false, physics = false;
-	int gameObjLineCtr = 0;
-	int rigidBodyLineCtr = 0;
-	bool spawnObj = false;
+	bool isGameObject = false, physics = false, transform = false;
+	bool hasRigidbody = false;
+	bool hasTransform = false;
 
 	int lineCtr = 1; // for debugging
 
@@ -114,16 +112,14 @@ void SceneReader::readFromYAMLFile()
 		if (lineSplit[0] == "--- !u!54 ") // If there's a Rigidbody add Physics Component
 		{
 			hasRigidbody = true;
-			rigidBodyLineCtr = 0;
 
 		}
 		if (lineSplit[0] == "--- !u!4 ") { // Transform for the scale
-			gameObjLineCtr = 0;
-			rigidBodyLineCtr = 0;
-			//spawnObj = true;
+			hasTransform = true;
 		}
 
-		if (isGameObject) {
+		// What to do when you have passed the GameObject ID
+		if (isGameObject) { 
 			std::vector lineSplit = StringUtils::split(readLine, ':');
 			//std::cout << lineSplit[0] << "\n";
 
@@ -134,43 +130,121 @@ void SceneReader::readFromYAMLFile()
 				objectName = lineSplit[1];
 				objectName.erase(0, 1);
 				std::cout << "objectName is " << objectName << "\n";
-				gameObjLineCtr = 0;
 				hasRigidbody = false;
-
-
 			}
 
-			if (lineSplit[0] == "  m_TagString" /*gameObjLineCtr == 1*/) {
+			if (lineSplit[0] == "  m_TagString") {
 				std::vector innerSplit = StringUtils::split(readLine, ' ');
 
-				if (innerSplit[3] == "Kinematic") {
+				if (innerSplit[3] == "Spawned") {
+					objectType = AGameObject::PrimitiveType::CUBE;
+				}
+				else if (innerSplit[3] == "Kinematic") {
 					objectType = AGameObject::PrimitiveType::PHYSICS_PLANE;
 				}
-				else if (innerSplit[3] == "Untagged")
+				else if (innerSplit[3] == "Untagged" || innerSplit[3] == "MainCamera")
 				{
 					isGameObject = false;
-					gameObjLineCtr = 0;
 				}
-				else if (innerSplit[3] == "Spawned") {
-					isGameObject = AGameObject::PrimitiveType::CUBE;
 
-				}
 				std::cout << "Tag is " << innerSplit[3] << "\n";
+			}
+		}
+
+		// What to do when you have passed the Rigidbody ID
+		if (hasRigidbody && isGameObject) {
+			std::vector lineSplit = StringUtils::split(readLine, ':');
+			//std::cout << lineSplit[0] << "\n";
+			physics = true;
+			if (objectType == AGameObject::PrimitiveType::CUBE) 
+			{
+				objectType = AGameObject::PrimitiveType::PHYSICS_CUBE;
+			}
+			if (lineSplit[0] == "  m_Mass") 
+			{
+				std::string strMass = lineSplit[1];
+				mass = std::stof(strMass.erase(0, 1));
+				std::cout << "Mass is " << mass << std::endl;
+			}
+
+			if (lineSplit[0] == "  m_UseGravity") 
+			{
+				isGravityEnabled = std::stof(lineSplit[1].erase(0, 1));
+				std::cout << "UseGravity is " << isGravityEnabled << std::endl;
+			}
+			
+			if (lineSplit[0] == "  m_IsKinematic") 
+			{
 
 			}
 
-			gameObjLineCtr++;
+
+		}
+
+		// What to do when you have passed the Transform ID
+		if (hasTransform && isGameObject)
+		{
+			std::vector lineSplit = StringUtils::split(readLine, ':');
+
+			if (lineSplit[0] == "  m_LocalRotation") 
+			{
+				std::cout << "---- " << "Rotation" << " ----\n";
+				std::vector xSplit = StringUtils::split(lineSplit[2], ',');
+				std::cout << "X is " << xSplit[0] << std::endl;
+
+				std::vector ySplit = StringUtils::split(lineSplit[3], ',');
+				std::cout << "Y is " << ySplit[0] << std::endl;
+
+				std::vector zSplit = StringUtils::split(lineSplit[4], ',');
+				std::cout << "Z is " << zSplit[0] << std::endl;
+
+				rotation = new Vector3D(
+					std::stof(xSplit[0].erase(0, 1)),
+					std::stof(ySplit[0].erase(0, 1)),
+					std::stof(zSplit[0].erase(0, 1))
+				);
+			}
+			if (lineSplit[0] == "  m_LocalPosition") 
+			{
+				std::cout << "---- " << "Position" << " ----\n";
+				std::vector xSplit = StringUtils::split(lineSplit[2], ',');
+				std::cout << "X is " << xSplit[0] << std::endl;
+
+				std::vector ySplit = StringUtils::split(lineSplit[3], ',');
+				std::cout << "Y is " << ySplit[0] << std::endl;
+
+				std::vector zSplit = StringUtils::split(lineSplit[4], ',');
+				std::cout << "Z is " << zSplit[0] << std::endl;
+
+				position = new Vector3D(
+					std::stof(xSplit[0].erase(0, 1)),
+					std::stof(ySplit[0].erase(0, 1)),
+					std::stof(zSplit[0].erase(0, 1))
+				);
+			}
+			if (lineSplit[0] == "  m_LocalScale")
+			{
+				std::cout << "---- " << "Scale" << " ----\n";
+				std::vector xSplit = StringUtils::split(lineSplit[2], ',');
+				std::cout << "X is " << xSplit[0] << std::endl;
+
+				std::vector ySplit = StringUtils::split(lineSplit[3], ',');
+				std::cout << "Y is " << ySplit[0] << std::endl;
+
+				std::vector zSplit = StringUtils::split(lineSplit[4], ',');
+				std::cout << "Z is " << zSplit[0] << std::endl;
+
+				scale = new Vector3D(
+					std::stof(xSplit[0].erase(0, 1)),
+					std::stof(ySplit[0].erase(0, 1)),
+					std::stof(zSplit[0].erase(0, 1))
+				);
+				GameObjectManager::getInstance()->createObjectFromFile(objectName, objectType, position, rotation, scale, path, mass, isGravityEnabled);
+
+			}
 			
+		}
 
-		}
-		if (hasRigidbody && isGameObject) {
-			rigidBodyLineCtr++;
-		}
-		if (spawnObj) {
-			//GameObjectManager::getInstance()->createObjectFromFile(objectName, objectType, position, rotation, scale, path, mass, isGravityEnabled);
-
-			spawnObj = false;
-		}
 		lineCtr++;
 	}
 	sceneFile.close();
