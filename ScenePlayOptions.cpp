@@ -35,7 +35,14 @@ void ScenePlayOptions::drawUI()
 					components[i]->getOwner()->attachComponent(new PhysicsComponent("PhysicsComponent", components[i]->getOwner()));
 					delete components[i];
 				}
-				
+				/*if (components[i]->getRigidBody()->getType() == BodyType::KINEMATIC)
+				{
+					components[i]->getOwner()->detachComponent(components[i]);
+					PhysicsComponent* component = new PhysicsComponent("PhysicsComponent", components[i]->getOwner());
+					component->getRigidBody()->setType(BodyType::KINEMATIC);
+					components[i]->getOwner()->attachComponent(component);
+					delete components[i];
+				}*/
 			}
 		}
 	}

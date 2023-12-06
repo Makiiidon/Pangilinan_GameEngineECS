@@ -10,7 +10,7 @@ PhysicsSystem::PhysicsSystem()
 	this->physicsCommon = new PhysicsCommon();
 	PhysicsWorld::WorldSettings settings;
 	settings.defaultVelocitySolverNbIterations = 50;
-	settings.gravity = Vector3(0, -9.81, 0);
+	settings.gravity = Vector3(0, -9.81f, 0);
 	this->physicsWorld = this->physicsCommon->createPhysicsWorld(settings);
 	std::cout << "Successfully created physics world. \n";
 }

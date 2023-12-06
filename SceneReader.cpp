@@ -3,6 +3,7 @@
 #include <fstream>
 #include "GameObjectManager.h"
 #include "StringUtils.h"
+#include "MathUtils.h"
 
 typedef std::fstream FileReader;
 SceneReader::SceneReader(String directory)
@@ -59,7 +60,7 @@ void SceneReader::readFromFile()
 		}
 		else if (index == 3) { // Rotation
 			std::vector stringSplit = StringUtils::split(readLine, '|');
-			rotation = Vector3D(std::stof(stringSplit[1]), std::stof(stringSplit[2]), std::stof(stringSplit[3]));
+			rotation = Vector3D(std::stof(stringSplit[2]), std::stof(stringSplit[1]), std::stof(stringSplit[3]));
 			index++;
 		}
 		else if (index == 4) { // Scale
@@ -186,7 +187,7 @@ void SceneReader::readFromYAMLFile()
 		{
 			std::vector lineSplit = StringUtils::split(readLine, ':');
 
-			if (lineSplit[0] == "  m_LocalRotation") 
+			if (lineSplit[0] == "  m_LocalRotation")
 			{
 				std::cout << "---- " << "Rotation" << " ----\n";
 				std::vector xSplit = StringUtils::split(lineSplit[2], ',');
@@ -198,12 +199,18 @@ void SceneReader::readFromYAMLFile()
 				std::vector zSplit = StringUtils::split(lineSplit[4], ',');
 				std::cout << "Z is " << zSplit[0] << std::endl;
 
-				rotation = new Vector3D(
-					std::stof(xSplit[0].erase(0, 1)),
-					std::stof(ySplit[0].erase(0, 1)),
-					std::stof(zSplit[0].erase(0, 1))
-				);
+				std::vector wSplit = StringUtils::split(lineSplit[5], ',');
+				std::cout << "w is " << wSplit[0] << std::endl;
+
+				float x, y, z, w;
+				x = std::stof(xSplit[0].erase(0, 1));
+				y = std::stof(zSplit[0].erase(0, 1));
+				z = std::stof(ySplit[0].erase(0, 1));
+				w = std::stof(wSplit[0]);
+
+				rotation = MathUtils::QuaternionToEulerAngles(x, y, z, w);
 			}
+
 			if (lineSplit[0] == "  m_LocalPosition") 
 			{
 				std::cout << "---- " << "Position" << " ----\n";
