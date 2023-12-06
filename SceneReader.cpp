@@ -117,7 +117,7 @@ void SceneReader::readFromYAMLFile()
 		if (lineSplit[0] == "--- !u!4 ") { // Transform for the scale
 			hasTransform = true;
 		}
-
+			
 		// What to do when you have passed the GameObject ID
 		if (isGameObject) { 
 			std::vector lineSplit = StringUtils::split(readLine, ':');
