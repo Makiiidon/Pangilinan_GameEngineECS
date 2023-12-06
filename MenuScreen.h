@@ -23,6 +23,7 @@ private:
 	bool isOpen = false;
 
 	ImGui::FileBrowser* openFileDialog;
+	ImGui::FileBrowser* openYAMLFileDialog;
 	ImGui::FileBrowser* saveFileDialog;
 
 };

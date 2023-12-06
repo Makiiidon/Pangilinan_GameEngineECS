@@ -19,6 +19,10 @@ MenuScreen::MenuScreen() : AUIScreen("MenuScreen")
 	openFileDialog = new ImGui::FileBrowser();
 	openFileDialog->SetTitle("Open Scene");
 	openFileDialog->SetTypeFilters({ ".level" });
+
+	openYAMLFileDialog = new ImGui::FileBrowser();
+	openYAMLFileDialog->SetTitle("Open YAML Scene");
+	openYAMLFileDialog->SetTypeFilters({ ".unity" });
 }
 
 MenuScreen::~MenuScreen()
@@ -33,6 +37,10 @@ void MenuScreen::drawUI()
 			if (ImGui::MenuItem("Open..", "Ctrl+O")) 
 			{ 
 				openFileDialog->Open();
+			}
+			if (ImGui::MenuItem("Open Scene YAML..", "Ctrl+O"))
+			{
+				openYAMLFileDialog->Open();
 			}
 			if (ImGui::MenuItem("Save", "Ctrl+S")) 
 			{ 
@@ -65,6 +73,7 @@ void MenuScreen::drawUI()
 		}
 		ImGui::EndMainMenuBar();
 		openFileDialog->Display();
+		openYAMLFileDialog->Display();
 		saveFileDialog->Display();
 
 		if (openFileDialog->HasSelected())
@@ -77,6 +86,14 @@ void MenuScreen::drawUI()
 			openFileDialog->ClearSelected();
 			openFileDialog->Close();
 		}
+		if (openYAMLFileDialog->HasSelected())
+		{
+			SceneReader* reader = new SceneReader(openYAMLFileDialog->GetSelected().string());
+			reader->readFromYAMLFile();
+			openYAMLFileDialog->ClearSelected();
+			openYAMLFileDialog->Close();
+		}
+
 		if (saveFileDialog->HasSelected())
 		{
 			// Full File Path fileDialog.GetSelected().string()

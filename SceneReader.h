@@ -9,6 +9,7 @@ public:
 	~SceneReader();
 
 	void readFromFile();
+	void readFromYAMLFile();
 
 private:
 	String directory;
