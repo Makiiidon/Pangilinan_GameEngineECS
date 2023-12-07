@@ -21,6 +21,15 @@ public:
 	Vector3D convertEulerToRadians();
 	Vector3D convertRadiansToEuler();
 
+	Vector3D operator /(float in) {
+		Vector3D out;
+		out.x = x / in;
+		out.y = y / in;
+		out.z = z / in;
+
+		return out;
+	}
+
 	Vect getValues() const;
 
 	static Vector3D lerp(const Vector3D start, const Vector3D end, float delta);

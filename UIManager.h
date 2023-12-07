@@ -36,6 +36,9 @@ public:
 	AUIScreen* findUIByName(String uiName);
 	void drawAllUI();
 
+	static const int WINDOW_WIDTH = 1440;
+	static const int WINDOW_HEIGHT = 900;
+
 private:
 	UIManager(HWND windowHandle);
 	~UIManager();

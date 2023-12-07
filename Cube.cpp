@@ -4,6 +4,7 @@
 #include "ShaderLibrary.h"
 #include "SwapChain.h"
 #include "GameObjectManager.h"
+#include "EngineBackend.h"
 
 
 Cube::Cube(String name, bool skipInit) :AGameObject(name)
@@ -104,13 +105,13 @@ void Cube::draw(int width, int height)
 
 	CBData cbData = {};
 
-	if (this->overrideMatrix)
+	if (EngineBackend::getInstance()->getMode() == EngineBackend::EDITOR)
 	{
+		this->updateLocalMatrix();
 		cbData.worldMatrix = this->localMatrix;
 	}
 	else
 	{
-		this->updateLocalMatrix();
 		cbData.worldMatrix = this->localMatrix;
 	}
 

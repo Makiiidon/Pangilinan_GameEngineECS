@@ -26,10 +26,9 @@ void ScenePlayOptions::drawUI()
 		if (ImGui::Button("Play")) 
 		{ 
 			EngineBackend::getInstance()->setMode(EngineBackend::PLAY); 
-
 			PhysicsSystem::ComponentList components = BaseComponentSystem::getInstance()->getPhysicsSystem()->getAllComponents();
 			for (int i = 0; i < components.size(); i++) {
-				if (components[i]->getRigidBody()->getType() != BodyType::KINEMATIC) 
+				if (components[i]->getRigidBody()->getType() != BodyType::KINEMATIC)
 				{
 					float mass = components[i]->getRigidBody()->getMass();
 					bool enableGravity = components[i]->getRigidBody()->isGravityEnabled();
@@ -41,20 +40,17 @@ void ScenePlayOptions::drawUI()
 
 					delete components[i];
 				}
-				/*if (components[i]->getRigidBody()->getType() == BodyType::KINEMATIC)
-				{
-					components[i]->getOwner()->detachComponent(components[i]);
-					PhysicsComponent* component = new PhysicsComponent("PhysicsComponent", components[i]->getOwner());
-					component->getRigidBody()->setType(BodyType::KINEMATIC);
-					components[i]->getOwner()->attachComponent(component);
-					delete components[i];
-				}*/
 			}
+			
 		}
 	}
 
 	else if (backend->getMode() != EngineBackend::EDITOR) {
-		if (ImGui::Button("Stop")) { EngineBackend::getInstance()->setMode(EngineBackend::EDITOR); }
+		if (ImGui::Button("Stop")) 
+		{ 
+			EngineBackend::getInstance()->setMode(EngineBackend::EDITOR); 
+			
+		}
 	}
 
 	ImGui::SameLine();
