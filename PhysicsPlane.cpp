@@ -70,9 +70,9 @@ PhysicsPlane::PhysicsPlane(String name, bool skipInit) : Cube(name)
 	this->setScale(32.0f, 0.2f, 32.0f);
 	this->setRotation(0.0f, 0.0f, 0.0f);
 	this->updateLocalMatrix();
-	this->attachComponent(new PhysicsComponent("PhysicsComponent", this));
+	this->attachComponent(new PhysicsComponent("PhysicsComponent" + name, this));
 
-	PhysicsComponent* component = (PhysicsComponent*)this->findComponentOfType(AComponent::ComponentType::Physics, "PhysicsComponent");
+	PhysicsComponent* component = (PhysicsComponent*)this->findComponentOfType(AComponent::ComponentType::Physics, "PhysicsComponent" + name);
 	component->getRigidBody()->setType(BodyType::KINEMATIC);
 	//component->getRigidBody()->setMass(0.0f);
 

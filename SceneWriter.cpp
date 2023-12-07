@@ -37,11 +37,11 @@ void SceneWriter::writeToFile()
 		bool hasRigidbody = false;
 		bool isGravityEnabled = true;
 
-		if (allObjects[i]->findComponentByName("PhysicsComponent")) 
+		if (allObjects[i]->findComponentByName("PhysicsComponent" + allObjects[i]->getName()))
 		{
-			mass = static_cast<PhysicsComponent*>(allObjects[i]->findComponentByName("PhysicsComponent"))->getRigidBody()->getMass();
+			mass = static_cast<PhysicsComponent*>(allObjects[i]->findComponentByName("PhysicsComponent" + allObjects[i]->getName()))->getRigidBody()->getMass();
 			hasRigidbody = true;
-			isGravityEnabled = static_cast<PhysicsComponent*>(allObjects[i]->findComponentByName("PhysicsComponent"))->getRigidBody()->isGravityEnabled();
+			isGravityEnabled = static_cast<PhysicsComponent*>(allObjects[i]->findComponentByName("PhysicsComponent" + allObjects[i]->getName()))->getRigidBody()->isGravityEnabled();
 		}
 
 		std::string path = "none";

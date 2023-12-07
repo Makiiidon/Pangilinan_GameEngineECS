@@ -34,26 +34,25 @@ void ScenePlayOptions::drawUI()
 					float mass = components[i]->getRigidBody()->getMass();
 					bool enableGravity = components[i]->getRigidBody()->isGravityEnabled();
 					components[i]->getOwner()->detachComponent(components[i]);
-					PhysicsComponent* newComp = new PhysicsComponent("PhysicsComponent", components[i]->getOwner());
+					PhysicsComponent* newComp = new PhysicsComponent("PhysicsComponent" + components[i]->getOwner()->getName(), components[i]->getOwner());
 					newComp->getRigidBody()->setMass(mass);
 					newComp->getRigidBody()->enableGravity(enableGravity);
 					components[i]->getOwner()->attachComponent(newComp);
 
-					delete components[i];
+					BaseComponentSystem::getInstance()->getPhysicsSystem()->unregisterComponent(components[i]);
 				}
 				else if (components[i]->getRigidBody()->getType() == BodyType::KINEMATIC) {
 
 					float mass = components[i]->getRigidBody()->getMass();
 					bool enableGravity = components[i]->getRigidBody()->isGravityEnabled();
 					components[i]->getOwner()->detachComponent(components[i]);
-					PhysicsComponent* newComp = new PhysicsComponent("PhysicsComponent", components[i]->getOwner());
+					PhysicsComponent* newComp = new PhysicsComponent("PhysicsComponent" + components[i]->getOwner()->getName(), components[i]->getOwner());
 					newComp->getRigidBody()->setMass(mass);
 					newComp->getRigidBody()->enableGravity(enableGravity);
 					newComp->getRigidBody()->setType(BodyType::KINEMATIC);
 					components[i]->getOwner()->attachComponent(newComp);
 
-					delete components[i];
-
+					BaseComponentSystem::getInstance()->getPhysicsSystem()->unregisterComponent(components[i]);
 				}
 			}
 			

@@ -250,8 +250,8 @@ void GameObjectManager::createObjectFromFile(String objectName, AGameObject::Pri
 		cube->setPosition(position);
 		cube->setRotation(rotation);
 		cube->setScale(scale);
-		static_cast<PhysicsComponent*>(cube->findComponentByName("PhysicsComponent"))->getRigidBody()->setMass(mass);
-		static_cast<PhysicsComponent*>(cube->findComponentByName("PhysicsComponent"))->getRigidBody()->enableGravity(hasGravity);
+		static_cast<PhysicsComponent*>(cube->findComponentByName("PhysicsComponent"+ objectName))->getRigidBody()->setMass(mass);
+		static_cast<PhysicsComponent*>(cube->findComponentByName("PhysicsComponent" + objectName))->getRigidBody()->enableGravity(hasGravity);
 		this->addObject(cube);
 	}
 

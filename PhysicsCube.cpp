@@ -7,7 +7,7 @@ PhysicsCube::PhysicsCube(String name, bool skipInit) : Cube(name, skipInit)
 	this->setPosition(0.0f, 5.0f, 0.0f);
 	this->setScale(1.0f, 1.0f, 1.0f);
 	this->updateLocalMatrix();
-	this->attachComponent(new PhysicsComponent("PhysicsComponent", this));
+	this->attachComponent(new PhysicsComponent("PhysicsComponent" + name, this));
 	setObjectType(PrimitiveType::PHYSICS_CUBE);
 
 }
