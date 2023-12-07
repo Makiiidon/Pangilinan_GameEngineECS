@@ -16,10 +16,13 @@ PhysicsComponent::PhysicsComponent(String name, AGameObject* owner) : AComponent
 
 	// Create a rigid body in the world
 	Vector3D scale = this->getOwner()->getLocalScale();
-	Transform transform; transform.setFromOpenGL(this->getOwner()->getPhysicsLocalMatrix());
+
+	Transform transform; 
+	transform.setFromOpenGL(this->getOwner()->getPhysicsLocalMatrix());
 	BoxShape* boxShape = physicsCommon->createBoxShape(Vector3(scale.getX() / 2, scale.getY() / 2, scale.getZ() / 2)); //half extent
 	this->rigidBody = physicsWorld->createRigidBody(transform);
-	this->rigidBody->addCollider(boxShape, transform);
+	Transform zero; zero.setFromOpenGL(this->getOwner()->getPhysicsLocalMatrixZero());
+	this->rigidBody->addCollider(boxShape, zero);
 	this->rigidBody->updateMassPropertiesFromColliders();
 	this->rigidBody->setMass(this->mass);
 	this->rigidBody->setType(BodyType::DYNAMIC);
@@ -33,6 +36,7 @@ PhysicsComponent::PhysicsComponent(String name, AGameObject* owner) : AComponent
 
 PhysicsComponent::~PhysicsComponent()
 {
+	//this->rigidBody->removeCollider();
 	BaseComponentSystem::getInstance()->getPhysicsSystem()->unregisterComponent(this);
 	AComponent::~AComponent();
 }

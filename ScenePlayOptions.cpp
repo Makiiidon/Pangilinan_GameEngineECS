@@ -27,6 +27,7 @@ void ScenePlayOptions::drawUI()
 		{ 
 			EngineBackend::getInstance()->setMode(EngineBackend::PLAY); 
 			PhysicsSystem::ComponentList components = BaseComponentSystem::getInstance()->getPhysicsSystem()->getAllComponents();
+
 			for (int i = 0; i < components.size(); i++) {
 				if (components[i]->getRigidBody()->getType() != BodyType::KINEMATIC)
 				{
@@ -39,6 +40,20 @@ void ScenePlayOptions::drawUI()
 					components[i]->getOwner()->attachComponent(newComp);
 
 					delete components[i];
+				}
+				else if (components[i]->getRigidBody()->getType() == BodyType::KINEMATIC) {
+
+					float mass = components[i]->getRigidBody()->getMass();
+					bool enableGravity = components[i]->getRigidBody()->isGravityEnabled();
+					components[i]->getOwner()->detachComponent(components[i]);
+					PhysicsComponent* newComp = new PhysicsComponent("PhysicsComponent", components[i]->getOwner());
+					newComp->getRigidBody()->setMass(mass);
+					newComp->getRigidBody()->enableGravity(enableGravity);
+					newComp->getRigidBody()->setType(BodyType::KINEMATIC);
+					components[i]->getOwner()->attachComponent(newComp);
+
+					delete components[i];
+
 				}
 			}
 			

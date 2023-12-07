@@ -59,6 +59,7 @@ public:
 	void recomputeMatrix(float matrix[16]);
 	// our matrix implementation to openGL matrix
 	float* getPhysicsLocalMatrix();
+	float* getPhysicsLocalMatrixZero();
 	void updateLocalMatrix(); //updates local matrix based from latest position, rotation, and scale.
 	float* getRawMatrix();
 

@@ -107,7 +107,7 @@ void SceneReader::readFromYAMLFile()
 		if (lineSplit[0] == "--- !u!1 ") { // If it's a game object then start process
 			isGameObject = true;
 			//std::cout << "Found " << readLine << "\n";
-			std::cout << "----- " << lineCtr << "-----\n";
+			//std::cout << "----- " << lineCtr << "-----\n";
 
 		}
 		if (lineSplit[0] == "--- !u!54 ") // If there's a Rigidbody add Physics Component
@@ -130,7 +130,7 @@ void SceneReader::readFromYAMLFile()
 
 				objectName = lineSplit[1];
 				objectName.erase(0, 1);
-				std::cout << "objectName is " << objectName << "\n";
+				//std::cout << "objectName is " << objectName << "\n";
 				hasRigidbody = false;
 			}
 
@@ -148,7 +148,7 @@ void SceneReader::readFromYAMLFile()
 					isGameObject = false;
 				}
 
-				std::cout << "Tag is " << innerSplit[3] << "\n";
+				//std::cout << "Tag is " << innerSplit[3] << "\n";
 			}
 		}
 
@@ -165,13 +165,13 @@ void SceneReader::readFromYAMLFile()
 			{
 				std::string strMass = lineSplit[1];
 				mass = std::stof(strMass.erase(0, 1));
-				std::cout << "Mass is " << mass << std::endl;
+				//std::cout << "Mass is " << mass << std::endl;
 			}
 
 			if (lineSplit[0] == "  m_UseGravity") 
 			{
 				isGravityEnabled = std::stof(lineSplit[1].erase(0, 1));
-				std::cout << "UseGravity is " << isGravityEnabled << std::endl;
+				//std::cout << "UseGravity is " << isGravityEnabled << std::endl;
 			}
 			
 			if (lineSplit[0] == "  m_IsKinematic") 
@@ -189,18 +189,18 @@ void SceneReader::readFromYAMLFile()
 
 			if (lineSplit[0] == "  m_LocalRotation")
 			{
-				std::cout << "---- " << "Rotation" << " ----\n";
+				//std::cout << "---- " << "Rotation" << " ----\n";
 				std::vector xSplit = StringUtils::split(lineSplit[2], ',');
-				std::cout << "X is " << xSplit[0] << std::endl;
+				//std::cout << "X is " << xSplit[0] << std::endl;
 
 				std::vector ySplit = StringUtils::split(lineSplit[3], ',');
-				std::cout << "Y is " << ySplit[0] << std::endl;
+				//std::cout << "Y is " << ySplit[0] << std::endl;
 
 				std::vector zSplit = StringUtils::split(lineSplit[4], ',');
-				std::cout << "Z is " << zSplit[0] << std::endl;
+				//std::cout << "Z is " << zSplit[0] << std::endl;
 
 				std::vector wSplit = StringUtils::split(lineSplit[5], ',');
-				std::cout << "w is " << wSplit[0] << std::endl;
+				//std::cout << "w is " << wSplit[0] << std::endl;
 
 				float x, y, z, w;
 				x = std::stof(xSplit[0].erase(0, 1));
@@ -213,15 +213,15 @@ void SceneReader::readFromYAMLFile()
 
 			if (lineSplit[0] == "  m_LocalPosition") 
 			{
-				std::cout << "---- " << "Position" << " ----\n";
+				//std::cout << "---- " << "Position" << " ----\n";
 				std::vector xSplit = StringUtils::split(lineSplit[2], ',');
-				std::cout << "X is " << xSplit[0] << std::endl;
+				//std::cout << "X is " << xSplit[0] << std::endl;
 
 				std::vector ySplit = StringUtils::split(lineSplit[3], ',');
-				std::cout << "Y is " << ySplit[0] << std::endl;
+				//std::cout << "Y is " << ySplit[0] << std::endl;
 
 				std::vector zSplit = StringUtils::split(lineSplit[4], ',');
-				std::cout << "Z is " << zSplit[0] << std::endl;
+				//std::cout << "Z is " << zSplit[0] << std::endl;
 
 				position = new Vector3D(
 					std::stof(xSplit[0].erase(0, 1)),
@@ -231,15 +231,15 @@ void SceneReader::readFromYAMLFile()
 			}
 			if (lineSplit[0] == "  m_LocalScale")
 			{
-				std::cout << "---- " << "Scale" << " ----\n";
+				//std::cout << "---- " << "Scale" << " ----\n";
 				std::vector xSplit = StringUtils::split(lineSplit[2], ',');
-				std::cout << "X is " << xSplit[0] << std::endl;
+				//std::cout << "X is " << xSplit[0] << std::endl;
 
 				std::vector ySplit = StringUtils::split(lineSplit[3], ',');
-				std::cout << "Y is " << ySplit[0] << std::endl;
+				//std::cout << "Y is " << ySplit[0] << std::endl;
 
 				std::vector zSplit = StringUtils::split(lineSplit[4], ',');
-				std::cout << "Z is " << zSplit[0] << std::endl;
+				//std::cout << "Z is " << zSplit[0] << std::endl;
 
 				scale = new Vector3D(
 					std::stof(xSplit[0].erase(0, 1)),

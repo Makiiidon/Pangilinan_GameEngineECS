@@ -30,6 +30,15 @@ public:
 		return out;
 	}
 
+	Vector3D operator -(Vector3D in) {
+		Vector3D out;
+		out.x = x - in.x;
+		out.y = y - in.y;
+		out.z = z - in.z;
+
+		return out;
+	}
+
 	Vect getValues() const;
 
 	static Vector3D lerp(const Vector3D start, const Vector3D end, float delta);

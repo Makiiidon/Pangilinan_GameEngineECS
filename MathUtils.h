@@ -71,7 +71,7 @@ public:
             y = y * 180.0f / M_PI;
             x = x * 180.0f / M_PI;
 
-            std::cout << "X: " << x << "\nY: " << y << "\nZ: " << z << "\n";
+            //std::cout << "X: " << x << "\nY: " << y << "\nZ: " << z << "\n";
             angles = new Vector3D(x, y, z);
 
             return angles;
