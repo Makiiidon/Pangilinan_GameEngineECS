@@ -99,14 +99,14 @@ void InspectorScreen::drawPhysicsTab()
 	int BUTTON_WIDTH = 225;
 	int BUTTON_HEIGHT = 20;
 	bool hasRigidbody = false;
-	if (selectedObject->findComponentByName("PhysicsComponent") != NULL) 
+	if (selectedObject->findComponentByName("PhysicsComponent"+selectedObject->getName()) != NULL) 
 	{
 		hasRigidbody = true;
 	}
 
 	if (hasRigidbody) {
 
-		PhysicsComponent* component = (PhysicsComponent*)selectedObject->findComponentByName("PhysicsComponent");
+		PhysicsComponent* component = (PhysicsComponent*)selectedObject->findComponentByName("PhysicsComponent" + selectedObject->getName());
 		mass = component->getRigidBody()->getMass();
 
 		static bool isStatic = component->getRigidBody()->getType() == BodyType::STATIC;
@@ -161,7 +161,7 @@ void InspectorScreen::drawPhysicsTab()
 		ImGui::Text("Rigidbody: None");
 		if (ImGui::Button("Add Rigidbody", ImVec2(BUTTON_WIDTH, BUTTON_HEIGHT))) 
 		{
-			this->selectedObject->attachComponent(new PhysicsComponent("PhysicsComponent", this->selectedObject));
+			this->selectedObject->attachComponent(new PhysicsComponent("PhysicsComponent"+this->selectedObject->getName(), this->selectedObject));
 		}
 	}
 }

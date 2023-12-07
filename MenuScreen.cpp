@@ -136,9 +136,7 @@ void MenuScreen::OnRigidBodyComponentClicked()
 
 void MenuScreen::OnPhysicsCubeClicked()
 {
-	for (int i = 0; i < 20; i++) {
-		GameObjectManager::getInstance()->createObject(GameObjectManager::PrimitiveType::PHYSICS_CUBE);
-	}
+	GameObjectManager::getInstance()->createObject(GameObjectManager::PrimitiveType::PHYSICS_CUBE);
 }
 
 void MenuScreen::OnPhysicsPlaneClicked()
